@@ -25,15 +25,23 @@ public class FavauriteService {
     public Response addFavaurite(Favaurite favaurite,int userId) {
         Response response = new Response();
         try{
-            Optional<User>user=userRepository.findById(userId);
-            if(user.isPresent()){
-                favaurite.setUser(user.get());
+            List<Favaurite> favaurites = favauriteRepository.findByUserId(userId);
+            if (favaurites.size() > 0) {
+                for (Favaurite f : favaurites) {
+                    if (f.getProductId() == favaurite.getProductId()) {
+                        response.setMessage("product already exist");
+                        response.setStatusCode(200);
+                        return response;
+                    }
+                }
             }
+            favaurite.setUser(userRepository.findById(userId).get());
             Favaurite favaurite1 = favauriteRepository.save(favaurite);
-            FavauriteDto favauriteDto= Utils.mapFavauriteEntityToFavauriteDto(favaurite1);
+            FavauriteDto favauriteDto = Utils.mapFavauriteEntityToFavauriteDto(favaurite1);
             response.setFavauriteDto(favauriteDto);
             response.setMessage("Success");
             response.setStatusCode(201);
+
         }catch (Exception e){
             response.setStatusCode(500);
             response.setMessage(e.getMessage());
@@ -56,7 +64,7 @@ public class FavauriteService {
         return response;
     }
 
-    public Response deleteFav(int userId, int productId) {
+    public Response deleteFav( int productId) {
         Response response = new Response();
         try{
             Optional<Favaurite> favaurite=favauriteRepository.findById(productId);
