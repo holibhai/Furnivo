@@ -87,7 +87,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/review/status/**").hasAuthority("ADMIN")
                                 .requestMatchers("/api/review/delete/**").hasAuthority("ADMIN")
 
-
+//check
                                 .requestMatchers("/api/order/add/**").hasAuthority("USER")
                                 .requestMatchers("/api/billing/add/**").hasAuthority("USER")
                                 .requestMatchers("/api/cartItem/add/**").hasAuthority("USER")
