@@ -12,14 +12,10 @@ public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-
     private String deliveryType;
-
     private String location;
     private String deliveryDate;
     private String pickUpOrderNotes;
-
     private String receiverFirstName;
     private String receiverLastName;
     private String city;
