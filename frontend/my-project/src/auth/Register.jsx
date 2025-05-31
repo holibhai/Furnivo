@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Loader2, Check, X, Eye, EyeOff } from "lucide-react";
 
-// Import furniture images (replace with your actual image imports)
 import furnitureImage1 from "../assets/photo-1644057501622-dfa7dd26dbfb.avif";
 import furnitureImage2 from "../assets/photo-1713707131805-f0d7d7432598.avif";
 import furnitureImage3 from "../assets/photo-1611892440504-42a792e24d32.avif";
