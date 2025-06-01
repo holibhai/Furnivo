@@ -155,7 +155,7 @@ const ProductUpdate = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto  px-4 py-8">
+    <div className="max-w-7xl mx-auto  px-4 py-8">
                         <ToastContainer position="top-right" autoClose={3000} />
       
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
