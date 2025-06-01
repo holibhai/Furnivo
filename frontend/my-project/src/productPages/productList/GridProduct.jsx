@@ -102,6 +102,8 @@ const GridProduct = ({ categoryName }) => {
   const { maxValue, setMaxValue } = useAppContext();
   const [sortOption, setSortOption] = useState("featured");
 
+  console.log(maxValue);
+
   // Filter products whenever search term, product data, or filters change
   useEffect(() => {
     const filterProducts = () => {
