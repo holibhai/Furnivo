@@ -16,9 +16,26 @@ import {
   AlertCircle,
   Box,
   ShoppingBag,
-  MessageSquare
+  MessageSquare,
+  BarChart2,
+  Calendar
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  LineChart,
+  Line
+} from "recharts";
 
 const AdminHome = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -33,7 +50,12 @@ const AdminHome = () => {
     reviews: 0,
     customers: 0
   });
+  const [orderData, setOrderData] = useState([]);
+  const [timeRange, setTimeRange] = useState("monthly");
   const navigate = useNavigate();
+
+  // Colors for charts
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
 
   // Fetch all dashboard data
   useEffect(() => {
@@ -91,6 +113,11 @@ const AdminHome = () => {
           customers: usersRes.data.userAccountDtoList?.length || 0
         });
 
+        // Process order data for charts
+        if (ordersRes.data.orderDtoList) {
+          processOrderData(ordersRes.data.orderDtoList);
+        }
+
       } catch (err) {
         console.error("Failed to fetch data", err);
         setError("Failed to load dashboard data");
@@ -101,6 +128,157 @@ const AdminHome = () => {
 
     fetchData();
   }, []);
+
+  // Process order data for charts
+  const processOrderData = (orders) => {
+    // Process data for different time ranges
+    const now = new Date();
+    const monthlyData = processOrdersByTimeRange(orders, 'month', now);
+    const weeklyData = processOrdersByTimeRange(orders, 'week', now);
+    const dailyData = processOrdersByTimeRange(orders, 'day', now);
+    
+    // Process data for product categories
+    const categoryData = processOrdersByCategory(orders);
+    
+    // Process data for order status
+    const statusData = processOrdersByStatus(orders);
+    
+    // Process revenue data
+    const revenueData = processRevenueData(orders);
+    
+    setOrderData({
+      monthly: monthlyData,
+      weekly: weeklyData,
+      daily: dailyData,
+      categories: categoryData,
+      status: statusData,
+      revenue: revenueData
+    });
+  };
+
+  // Process orders by time range
+  const processOrdersByTimeRange = (orders, range, endDate) => {
+    const dataMap = new Map();
+    const result = [];
+    const rangeCount = range === 'month' ? 12 : range === 'week' ? 4 : 7;
+    
+    // Initialize data structure
+    for (let i = rangeCount - 1; i >= 0; i--) {
+      const date = new Date(endDate);
+      if (range === 'month') {
+        date.setMonth(date.getMonth() - i);
+        const key = date.toLocaleString('default', { month: 'short' });
+        dataMap.set(key, { name: key, orders: 0, revenue: 0 });
+      } else if (range === 'week') {
+        date.setDate(date.getDate() - (i * 7));
+        const key = `Week ${Math.ceil((date.getDate()) / 7)}`;
+        dataMap.set(key, { name: key, orders: 0, revenue: 0 });
+      } else {
+        date.setDate(date.getDate() - i);
+        const key = date.toLocaleString('default', { weekday: 'short' });
+        dataMap.set(key, { name: key, orders: 0, revenue: 0 });
+      }
+    }
+    
+    // Process orders
+    orders.forEach(order => {
+      const orderDate = new Date(order.orderDate);
+      let key;
+      
+      if (range === 'month') {
+        key = orderDate.toLocaleString('default', { month: 'short' });
+      } else if (range === 'week') {
+        key = `Week ${Math.ceil((orderDate.getDate()) / 7)}`;
+      } else {
+        key = orderDate.toLocaleString('default', { weekday: 'short' });
+      }
+      
+      if (dataMap.has(key)) {
+        const entry = dataMap.get(key);
+        entry.orders += 1;
+        entry.revenue += order.totalAmount;
+      }
+    });
+    
+    // Convert to array
+    dataMap.forEach(value => {
+      result.push(value);
+    });
+    
+    return result;
+  };
+
+  // Process orders by category
+  const processOrdersByCategory = (orders) => {
+    const categoryMap = new Map();
+    
+    orders.forEach(order => {
+      order.orderItems.forEach(item => {
+        const category = item.productCategory || 'Unknown';
+        if (categoryMap.has(category)) {
+          const entry = categoryMap.get(category);
+          entry.value += 1;
+          entry.revenue += item.price * item.quantity;
+        } else {
+          categoryMap.set(category, { 
+            name: category, 
+            value: 1,
+            revenue: item.price * item.quantity
+          });
+        }
+      });
+    });
+    
+    return Array.from(categoryMap.values());
+  };
+
+  // Process orders by status
+  const processOrdersByStatus = (orders) => {
+    const statusMap = new Map();
+    
+    orders.forEach(order => {
+      const status = order.orderStatus || 'Unknown';
+      if (statusMap.has(status)) {
+        const entry = statusMap.get(status);
+        entry.value += 1;
+      } else {
+        statusMap.set(status, { 
+          name: status, 
+          value: 1
+        });
+      }
+    });
+    
+    return Array.from(statusMap.values());
+  };
+
+  // Process revenue data
+  const processRevenueData = (orders) => {
+    const revenueData = [];
+    const now = new Date();
+    
+    // Last 6 months revenue
+    for (let i = 5; i >= 0; i--) {
+      const date = new Date(now);
+      date.setMonth(date.getMonth() - i);
+      const monthName = date.toLocaleString('default', { month: 'short' });
+      
+      const monthOrders = orders.filter(order => {
+        const orderDate = new Date(order.orderDate);
+        return orderDate.getMonth() === date.getMonth() && 
+               orderDate.getFullYear() === date.getFullYear();
+      });
+      
+      const revenue = monthOrders.reduce((sum, order) => sum + order.totalAmount, 0);
+      
+      revenueData.push({
+        name: monthName,
+        revenue: revenue
+      });
+    }
+    
+    return revenueData;
+  };
 
   const handleViewClick = (category) => {
     setSelectedCategory(category);
@@ -121,8 +299,7 @@ const AdminHome = () => {
       ));
     } else {
       setFilteredProducts(
-        products.filter(p => p.productName.toLowerCase().includes(searchValue))
-      )
+        products.filter(p => p.productName.toLowerCase().includes(searchValue)))
     }
   };
 
@@ -195,6 +372,192 @@ const AdminHome = () => {
     }
   ];
 
+  // Render order charts section
+  const renderOrderCharts = () => {
+    if (!orderData.monthly || orderData.monthly.length === 0) {
+      return (
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+          <p className="text-gray-500 text-center">No order data available</p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-6 text-gray-700 flex items-center">
+          <BarChart2 className="h-6 w-6 mr-2 text-blue-600" />
+          ORDER ANALYTICS
+        </h2>
+
+        {/* Time range selector */}
+        <div className="flex justify-end mb-4">
+          <div className="inline-flex rounded-md shadow-sm">
+            <button
+              onClick={() => setTimeRange("monthly")}
+              className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
+                timeRange === "monthly"
+                  ? "bg-blue-600 text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setTimeRange("weekly")}
+              className={`px-4 py-2 text-sm font-medium ${
+                timeRange === "weekly"
+                  ? "bg-blue-600 text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Weekly
+            </button>
+            <button
+              onClick={() => setTimeRange("daily")}
+              className={`px-4 py-2 text-sm font-medium rounded-r-lg ${
+                timeRange === "daily"
+                  ? "bg-blue-600 text-white"
+                  : "bg-white text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              Daily
+            </button>
+          </div>
+        </div>
+
+        {/* Charts grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Orders over time chart */}
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+              Orders Over Time
+            </h3>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={orderData[timeRange]}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="orders" name="Number of Orders" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Revenue chart */}
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              <DollarSign className="h-5 w-5 mr-2 text-green-600" />
+              Revenue Trend
+            </h3>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={orderData.revenue}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => [`$${value}`, "Revenue"]} />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="revenue"
+                    stroke="#82ca9d"
+                    activeDot={{ r: 8 }}
+                    name="Revenue ($)"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Categories chart */}
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              <List className="h-5 w-5 mr-2 text-purple-600" />
+              Orders by Category
+            </h3>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={orderData.categories}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                    nameKey="name"
+                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {orderData.categories.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value, name, props) => [
+                    `${value} orders ($${props.payload.revenue.toFixed(2)})`,
+                    name
+                  ]} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Order status chart */}
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              <ShoppingCart className="h-5 w-5 mr-2 text-yellow-600" />
+              Order Status Distribution
+            </h3>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={orderData.status}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                    nameKey="name"
+                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  >
+                    {orderData.status.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Dashboard Stats Section */}
@@ -224,6 +587,9 @@ const AdminHome = () => {
           ))}
         </div>
       </div>
+
+      {/* Order Analytics Section */}
+      {renderOrderCharts()}
 
       {/* Products Section */}
       <div className="bg-white rounded-xl shadow-md overflow-hidden">
