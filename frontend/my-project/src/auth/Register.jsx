@@ -3,6 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Loader2, Check, X, Eye, EyeOff } from "lucide-react";
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import furnitureImage1 from "../assets/photo-1644057501622-dfa7dd26dbfb.avif";
 import furnitureImage2 from "../assets/photo-1713707131805-f0d7d7432598.avif";
 import furnitureImage3 from "../assets/photo-1611892440504-42a792e24d32.avif";
@@ -112,6 +115,7 @@ const Register = () => {
       
       console.log(response.data);
       setSuccess(true);
+      toast.success("Register Successfully");
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
       console.error("Error:", error);
@@ -126,6 +130,7 @@ const Register = () => {
       }
       
       setErrors({ ...errors, form: errorMessage });
+      toast.error('Register not successfully');
     } finally {
       setLoading(false);
     }
@@ -133,6 +138,8 @@ const Register = () => {
   
   return (
     <div className=" flex items-center justify-center">
+                                    <ToastContainer position="top-right" autoClose={3000} />
+      
       <div className="flex flex-col lg:flex-row bg-white shadow-2xl  overflow-hidden w-full max-w-[1800px]">
         {/* Image Carousel Side - 2/3 width */}
         <div className="hidden lg:block lg:w-2/3 relative h-[700px] overflow-hidden">
@@ -176,7 +183,7 @@ const Register = () => {
             <p className="text-gray-600">Join us to start your furniture shopping journey</p>
           </div>
 
-          {errors.form && (
+          {/* {errors.form && (
             <div className="mb-6 p-3 bg-red-50 text-red-700 rounded-lg flex items-start">
               <X className="flex-shrink-0 h-5 w-5 mt-0.5 mr-2" />
               <div>{errors.form}</div>
@@ -191,7 +198,7 @@ const Register = () => {
                 <p className="text-sm">Redirecting you to login page...</p>
               </div>
             </div>
-          )}
+          )} */}
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
