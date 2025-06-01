@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { Loader2, Eye, EyeOff, AlertCircle, Check } from 'lucide-react';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Import furniture images (replace with your actual image imports)
 import furnitureLogin1 from '../assets/photo-1627226325480-f46163bc38c2.avif';
 import furnitureLogin2 from '../assets/photo-1713707131805-f0d7d7432598.avif';
@@ -56,6 +59,7 @@ const Login = () => {
     setLoading(true);
     setError('');
     setSuccess(false);
+    toast.success('Successfully Login')
     
     try {
       const response = await axios.post(
@@ -89,6 +93,7 @@ const Login = () => {
       }
       
       setError(errorMessage);
+      toast.error("Not Login Successfullly")
     } finally {
       setLoading(false);
     }
@@ -96,6 +101,8 @@ const Login = () => {
 
   return (
     <div className="  flex items-center justify-center">
+                              <ToastContainer position="top-right" autoClose={3000} />
+      
       <div className="flex flex-col lg:flex-row w-full max-w-[1800px]  overflow-hidden shadow-2xl relative">
         {/* Image Carousel Side - Full width background */}
         <div className="hidden lg:block absolute inset-0 w-full h-full">
@@ -146,7 +153,7 @@ const Login = () => {
               <p className="text-gray-600">Enter your credentials to access your account</p>
             </div>
 
-            {error && (
+            {/* {error && (
               <div className="mb-6 p-3 bg-red-50 text-red-700 rounded-lg flex items-start">
                 <AlertCircle className="flex-shrink-0 h-5 w-5 mt-0.5 mr-2" />
                 <div>{error}</div>
@@ -161,7 +168,7 @@ const Login = () => {
                   <p className="text-sm">Redirecting you to the homepage...</p>
                 </div>
               </div>
-            )}
+            )} */}
 
             <form className="space-y-5" onSubmit={handleSubmit}>
               <div>
