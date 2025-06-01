@@ -43,6 +43,7 @@ import Customers from "./adminPages/Customers";
 import ProtectedRoute from "./ProtectedRoute";
 import DeliveryCost from "./adminPages/DeliveryCost";
 import Profile from "./adminPages/Profile";
+import Reports from "./adminPages/Reports";
 
 const App = () => {
   const location = useLocation();
@@ -101,6 +102,8 @@ const App = () => {
             <Route path="customers" element={<Customers />} />
             <Route path="deliverycost" element={<DeliveryCost />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="reports" element={<Reports />} />
+
           </Route>
         </Route>
 
