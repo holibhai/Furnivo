@@ -9,7 +9,7 @@ export const AppContextProvider = ({ children }) => {
   const [items, setItems] = useState({ cartItem: [] });
   const [search,setSearch]=useState();
   const [offer,setOffer]=useState();
-  const [maxValue, setMaxValue] = useState(); // Default Max Value
+  const [maxValue, setMaxValue] = useState();
   const [minValue, setMinValue] = useState(); 
   const [favCount,setFavCount]=useState();
   
