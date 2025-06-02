@@ -12,7 +12,7 @@ import {
   FaLaptop,
 } from "react-icons/fa";
 import axios from "axios";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 
 import LivingRoomImage from "../assets/blue-armchair-against-blue-wall-living-room-interior-elegant-interior-design-with-copy-space-ai-generative_123827-23715.jpg";
@@ -30,8 +30,8 @@ const Navbar = () => {
   const { cartItemCount, setCartItemCount } = useAppContext();
   const { search, setSearch, favCount, setFavCount } = useAppContext();
   const [userDetail, setUserDetail] = useState([]);
-  console.log(favCount);
-  const [openBar,setOpenBar]=useState(false);
+  const [openBar, setOpenBar] = useState(false);
+  const [mobileOpenCategory, setMobileOpenCategory] = useState(null);
 
   const [categories, setCategories] = useState([
     {
@@ -60,7 +60,6 @@ const Navbar = () => {
       subcategories: [],
       image: KitchenImage,
       description: "Functional and stylish kitchen solutions",
-      // icon: <FaKitchenSet className="inline mr-2" />
     },
     {
       name: "study & office",
@@ -71,7 +70,6 @@ const Navbar = () => {
     },
   ]);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [cartCount, setCartCount] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,40 +79,40 @@ const Navbar = () => {
   const categoryRefs = useRef([]);
   const navbarRef = useRef(null);
 
+  // Check authentication status
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
   }, []);
 
+  // Fetch user details
   useEffect(() => {
     const fetchUser = async () => {
-      try{
-      const userId = localStorage.getItem("userId");
-      const res = await axios.get(
-        `http://localhost:8080/api/user/getUser/${userId}`
-      );
-      setUserDetail(res.data.userAccountDto);
-    }catch(error){
-
-    }
+      try {
+        const userId = localStorage.getItem("userId");
+        const res = await axios.get(
+          `http://localhost:8080/api/user/getUser/${userId}`
+        );
+        setUserDetail(res.data.userAccountDto);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
     };
 
-    fetchUser();
-  },[]);
-  
+    if (isAuthenticated) fetchUser();
+  }, [isAuthenticated]);
+
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Fetch categories and subcategories
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -122,15 +120,8 @@ const Navbar = () => {
           categories.map(async (category) => {
             try {
               const response = await axios.get(
-                `http://localhost:8080/api/productType/getByName/${category.name}`,
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    // Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-                }
+                `http://localhost:8080/api/productType/getByName/${category.name}`
               );
-
               return {
                 ...category,
                 subcategories: response.data.productTypeDtoList.map(
@@ -138,12 +129,11 @@ const Navbar = () => {
                 ),
               };
             } catch (error) {
-              console.error(`Error fetching data for ${category.name}:`, error);
+              console.error(`Error fetching ${category.name}:`, error);
               return category;
             }
           })
         );
-
         setCategories(updatedCategories);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -153,73 +143,82 @@ const Navbar = () => {
     fetchData();
   }, []);
 
+  // Fetch cart and favorite counts
   useEffect(() => {
     const fetchCartItems = async () => {
       const userId = localStorage.getItem("userId");
       if (!userId) return;
+      
       try {
-        const response = await axios.get(
+        // Fetch cart items
+        const cartResponse = await axios.get(
           `http://localhost:8080/api/cartItem/get/${userId}`,
           {
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
-        setCartCount(response.data.cartItemDtoList.length);
-        setCartItemCount(response.data.cartItemDtoList.length);
+        setCartCount(cartResponse.data.cartItemDtoList.length);
+        setCartItemCount(cartResponse.data.cartItemDtoList.length);
 
-        const res = await axios.get(
+        // Fetch favorites
+        const favResponse = await axios.get(
           `http://localhost:8080/api/favaurite/get/${userId}`,
           {
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
-        setFavCount(res.data.favauriteDtoList.length);
+        setFavCount(favResponse.data.favauriteDtoList.length);
       } catch (err) {
-        console.log("error", err);
+        console.error("Error fetching cart/favorites:", err);
       }
     };
 
-    fetchCartItems();
-  }, [cartItemCount]);
+    if (isAuthenticated) fetchCartItems();
+  }, [cartItemCount, isAuthenticated]);
 
   const handleProductType = (productType) => {
     navigate("/productListMainPage", { state: { productType } });
     setHoveredCategory(null);
+    setOpenBar(false);
+    setMobileOpenCategory(null);
   };
 
   const handleMainPage = (categoryName) => {
-    setHoveredCategory(null);
     navigate("/productListMainPage", { state: { categoryName } });
+    setHoveredCategory(null);
+    setOpenBar(false);
+    setMobileOpenCategory(null);
   };
 
   const handleFavaurite = () => {
     if (!isAuthenticated) {
-      toast.error("Please sign in ");
+      toast.error("Please sign in to view favorites");
       return;
     }
     navigate("/favaurite");
+    setOpenBar(false);
   };
 
   const handleUser = () => {
     if (!isAuthenticated) {
-      toast.error("Please Sign In");
+      toast.error("Please sign in to access your account");
       return;
     }
     navigate("/user");
+    setOpenBar(false);
   };
 
   const handleCart = () => {
     if (!isAuthenticated) {
-      toast.error("Please Sign In");
+      toast.error("Please sign in to view your cart");
       return;
     }
     navigate("/checkout");
+    setOpenBar(false);
   };
 
   const handleSignOut = () => {
@@ -227,74 +226,62 @@ const Navbar = () => {
     localStorage.removeItem("userId");
     setIsAuthenticated(false);
     navigate("/");
+    setOpenBar(false);
   };
 
-  const handleClick=()=>[
-    navigate("/user")
-  ]
+  const toggleMobileCategory = (index) => {
+    setMobileOpenCategory(mobileOpenCategory === index ? null : index);
+  };
 
   return (
     <div className="flex flex-col relative" ref={navbarRef}>
-      {/* Top Bar - Hidden when scrolled */}
       <ToastContainer position="top-right" autoClose={3000} />
 
+      {/* Top Bar */}
       <div
-        className={`fixed  top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? "transform -translate-y-full" : "translate-y-0"
         } ${isHomePage ? "backdrop-blur-sm" : "bg-white"}`}
       >
-        <div
-          className={`w-full flex justify-between items-center  px-5 md:h-20 h-20 ${
-            isHomePage ? "" : ""
-          }`}
-        >
+        <div className={`w-full flex justify-between items-center px-5 h-20`}>
           <div className="flex items-center gap-1 cursor-pointer">
-            <h1 className={`mt-5`}>
-              <img src={logo} alt="" className="w-[180px] " />
-            </h1>
+            <img src={logo} alt="Furniture Logo" className="w-[180px]" />
           </div>
 
           <button
-            className="md:hidden p-2 ml-52"
-            onClick={() =>setOpenBar(!openBar)}
+            className="md:hidden p-2 ml-auto"
+            onClick={() => setOpenBar(!openBar)}
+            aria-label="Toggle menu"
           >
             {openBar ? (
-              <HiX
-                className={`h-6 w-6 ${
-                  isHomePage ? "text-white" : "text-gray-800"
-                }`}
-              />
+              <HiX className={`h-6 w-6 ${isHomePage ? "text-white" : "text-gray-800"}`} />
             ) : (
-              <HiMenu
-                className={`h-6 w-6 ${
-                  isHomePage ? "text-white" : "text-gray-800"
-                }`}
-              />
+              <HiMenu className={`h-6 w-6 ${isHomePage ? "text-white" : "text-gray-800"}`} />
             )}
           </button>
-          <div className="flex items-center gap-5 ">
-          
+
+          <div className="hidden md:flex items-center gap-5">
             {isAuthenticated && (
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2  border-yellow-300 shadow-md">
-              <img
-                src={
-                  userDetail.imageData && userDetail 
-                    ? `data:${userDetail.imageType};base64,${userDetail.imageData}`
-                    :  "https://randomuser.me/api/portraits/men/75.jpg"// Fallback image
-                }
-                alt="User Profile"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
+              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-yellow-300 shadow-md">
+                <img
+                  src={
+                    userDetail.imageData
+                      ? `data:${userDetail.imageType};base64,${userDetail.imageData}`
+                      : "https://randomuser.me/api/portraits/men/75.jpg"
+                  }
+                  alt="User Profile"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
             )}
             {isAuthenticated ? (
               <button
                 onClick={handleSignOut}
-                className={`hidden md:block border rounded-full ${
+                className={`border rounded-full ${
                   isHomePage
-                    ? "text-white hover:bg-white hover:text-black "
-                    : "text-white bg-black hover:bg-gray-100 border-gray-300"
+                    ? "text-white hover:bg-white hover:text-black"
+                    : "text-white bg-black hover:bg-gray-100"
                 } px-6 py-2.5 text-sm font-medium transition-all hover:shadow-lg`}
               >
                 Sign out
@@ -302,7 +289,11 @@ const Navbar = () => {
             ) : (
               <Link to="/login">
                 <button
-                  className={`hidden md:block ${isHomePage ? "border border-white  text-white font-semibold rounded-full px-9 py-2.5   text-sm  transition-all hover:shadow-lg":"text-white bg-black px-9 hover:text-red-600 border-gray-300 rounded-full "} px-6 py-2.5 text-sm font-medium transition-all hover:shadow-lg`}
+                  className={`${
+                    isHomePage
+                      ? "border border-white text-white hover:bg-white hover:text-black"
+                      : "bg-black text-white hover:bg-gray-800"
+                  } rounded-full px-6 py-2.5 text-sm font-medium transition-all hover:shadow-lg`}
                 >
                   Sign in
                 </button>
@@ -312,24 +303,16 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Category Bar - Always sticky */}
+      {/* Desktop Category Bar */}
       <div
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 hidden md:block  ${
-          isScrolled ? "top-0" : "md:top-20 top-16"
-        } ${
-          isHomePage && !isScrolled ? "" : "bg-white border-b border-gray-200"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 hidden md:block ${
+          isScrolled ? "top-0" : "top-20"
+        } ${isHomePage && !isScrolled ? "" : "bg-white border-b border-gray-200"}`}
       >
         <div className="relative">
-          <nav
-            className={`p-4 ${
-              isHomePage && !isScrolled
-                ? ""
-                : "bg-white border-b border-gray-200"
-            }`}
-          >
-            <div className="container mx-auto  flex flex-col md:flex-row md:justify-center md:gap-10 items-center">
-              <div className="flex space-x-6 pl-20  relative w-full">
+          <nav className={`p-4 ${isHomePage && !isScrolled ? "" : "bg-white"}`}>
+            <div className="container mx-auto flex flex-col md:flex-row md:justify-center md:gap-10 items-center">
+              <div className="flex space-x-6 pl-20 relative w-full">
                 {categories.map((category, index) => (
                   <div
                     key={index}
@@ -348,26 +331,18 @@ const Navbar = () => {
                   >
                     <button
                       className={`px-4 py-2 uppercase text-sm font-medium rounded-lg hover:text-orange-400 transition-colors ${
-                        isHomePage && !isScrolled
-                          ? "text-white"
-                          : "text-gray-800"
+                        isHomePage && !isScrolled ? "text-white" : "text-gray-800"
                       }`}
                       onClick={() => handleMainPage(category.name)}
                     >
                       <div className="flex items-center">
                         {category.icon}
                         {category.name}
-                        <span>
-                          <ChevronDown
-                            className={`w-[15px] transition-transform ${
-                              hoveredCategory === index ? "rotate-180" : ""
-                            } ${
-                              isHomePage && !isScrolled
-                                ? "text-white"
-                                : "text-gray-800"
-                            }`}
-                          />
-                        </span>
+                        <ChevronDown
+                          className={`w-[15px] transition-transform ${
+                            hoveredCategory === index ? "rotate-180" : ""
+                          } ${isHomePage && !isScrolled ? "text-white" : "text-gray-800"}`}
+                        />
                       </div>
                     </button>
                   </div>
@@ -377,11 +352,11 @@ const Navbar = () => {
               <div className="relative w-[400px] md:w-1/3 my-2 md:my-0">
                 <input
                   type="text"
-                  placeholder="Search for item..."
+                  placeholder="Search for items..."
                   className={`w-full p-3 pl-4 pr-10 border rounded-lg ${
                     isHomePage && !isScrolled
                       ? "border-white bg-white bg-opacity-20 text-white placeholder-white"
-                      : "border-gray-300 text-gray-800 placeholder-gray-500"
+                      : "border-gray-300 text-gray-800"
                   } focus:outline-none focus:ring-2 focus:ring-orange-400`}
                   onChange={(e) => setSearch(e.target.value)}
                 />
@@ -393,16 +368,13 @@ const Navbar = () => {
               </div>
 
               <div className="flex items-center space-x-6">
-                <div
-                  className="relative cursor-pointer"
-                  onClick={handleFavaurite}
-                >
+                <div className="relative cursor-pointer" onClick={handleFavaurite}>
                   <FaHeart
                     className={`text-xl ${
                       isHomePage && !isScrolled
                         ? "text-white hover:text-green-500"
                         : "text-gray-800 hover:text-green-500"
-                    } transition-colors`}
+                    }`}
                   />
                   <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
                     {favCount || 0}
@@ -413,7 +385,7 @@ const Navbar = () => {
                     isHomePage && !isScrolled
                       ? "text-white hover:text-blue-500"
                       : "text-gray-800 hover:text-blue-500"
-                  } transition-colors`}
+                  }`}
                   onClick={handleUser}
                 />
                 <div className="relative cursor-pointer" onClick={handleCart}>
@@ -422,7 +394,7 @@ const Navbar = () => {
                       isHomePage && !isScrolled
                         ? "text-white hover:text-green-500"
                         : "text-gray-800 hover:text-green-500"
-                    } transition-colors`}
+                    }`}
                   />
                   <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
                     {cartCount}
@@ -432,18 +404,13 @@ const Navbar = () => {
             </div>
           </nav>
 
-          {/* Mega Dropdown Menu */}
+          {/* Mega Dropdown */}
           {hoveredCategory !== null && (
             <div
-              className={`absolute top-full left-0 w-full shadow-lg transition-all duration-300 ease-in-out ${
-                hoveredCategory !== null
-                  ? "opacity-100 visible"
-                  : "opacity-0 invisible"
+              className={`absolute top-full left-0 w-full shadow-lg transition-all duration-300 ${
+                hoveredCategory !== null ? "opacity-100" : "opacity-0"
               }`}
-              onMouseEnter={() => {
-                clearTimeout(closeTimeout.current);
-                setHoveredCategory(hoveredCategory);
-              }}
+              onMouseEnter={() => clearTimeout(closeTimeout.current)}
               onMouseLeave={() => {
                 closeTimeout.current = setTimeout(
                   () => setHoveredCategory(null),
@@ -451,31 +418,14 @@ const Navbar = () => {
                 );
               }}
             >
-              {/* Triangle connector */}
-              <div
-                className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-white"
-                style={{
-                  left: `${
-                    (categoryRefs.current[hoveredCategory]?.offsetLeft || 0) +
-                    (categoryRefs.current[hoveredCategory]?.offsetWidth || 0) /
-                      2
-                  }px`,
-                }}
-              ></div>
-
-              {/* Container with rounded corners */}
-              <div className="relative h-[700px] overflow-hidden rounded-b-lg ">
-                {/* Background Image */}
+              <div className="relative h-[700px] overflow-hidden rounded-b-lg">
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-opacity duration-500"
+                  className="absolute inset-0 bg-cover bg-center"
                   style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${categories[hoveredCategory].image})`,
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
                   }}
                 ></div>
 
-                {/* Content */}
                 <div className="container mx-auto relative z-10 h-full flex">
                   <div className="w-2/3 py-12 px-8">
                     <h2 className="text-3xl font-bold text-white mb-2 capitalize">
@@ -486,32 +436,28 @@ const Navbar = () => {
                       {categories[hoveredCategory].description}
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                      {categories[hoveredCategory].subcategories.map(
-                        (sub, i) => (
-                          <div
-                            key={i}
-                            className="group"
-                            onClick={() => handleProductType(sub)}
-                          >
-                            <div className="px-4 py-3 bg-white bg-opacity-0 group-hover:bg-opacity-10 rounded-lg transition-all duration-300 cursor-pointer">
-                              <h3 className="text-white font-bold uppercase group-hover:text-orange-400 transition-colors duration-300">
-                                {sub}
-                              </h3>
-                              <p className="text-gray-300 text-sm mt-1">
-                                Shop the best {sub} collection
-                              </p>
-                            </div>
+                      {categories[hoveredCategory].subcategories.map((sub, i) => (
+                        <div
+                          key={i}
+                          className="group"
+                          onClick={() => handleProductType(sub)}
+                        >
+                          <div className="px-4 py-3 bg-white bg-opacity-0 group-hover:bg-opacity-10 rounded-lg transition-all cursor-pointer">
+                            <h3 className="text-white font-bold uppercase group-hover:text-orange-400">
+                              {sub}
+                            </h3>
+                            <p className="text-gray-300 text-sm mt-1">
+                              Shop the best {sub} collection
+                            </p>
                           </div>
-                        )
-                      )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="w-1/3 flex items-center justify-center">
                     <button
-                      onClick={() =>
-                        handleMainPage(categories[hoveredCategory].name)
-                      }
-                      className="bg-white text-gray-800 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                      onClick={() => handleMainPage(categories[hoveredCategory].name)}
+                      className="bg-white text-gray-800 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition shadow-lg hover:shadow-xl hover:-translate-y-1"
                     >
                       View All {categories[hoveredCategory].name}
                     </button>
@@ -522,62 +468,136 @@ const Navbar = () => {
           )}
         </div>
       </div>
-    <div
-  className={`fixed top-0 left-0 h-full w-9/12 bg-gray-600 text-white transition-transform duration-300 z-50 shadow-lg ${
-    openBar ? 'translate-x-0' : '-translate-x-full'
-  }`}
->
-  <div className="">
-      <div className="flex justify-between items-center mr-10 overflow-hiddenr">
-          <h1>
-              <img src={logo} alt="" className="w-[180px] " />
-            </h1>
 
-               <div className="flex items-center space-x-6">
-                <div
-                  className="relative cursor-pointer"
-                  onClick={handleFavaurite}
-                >
-                  <FaHeart
-                    className={`text-xl text-black ${
-                      isHomePage && !isScrolled
-                        ? "text-white hover:text-green-500"
-                        : "text-gray-800 hover:text-green-500"
-                    } transition-colors`}
-                  />
-                  <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
-                    {favCount || 0}
-                  </div>
-                </div>
-                <FaUser
-                  className={`text-xl cursor-pointer text-black ${
-                    isHomePage && !isScrolled
-                      ? "text-white hover:text-blue-500"
-                      : "text-gray-800 hover:text-blue-500"
-                  } transition-colors`}
-                  onClick={handleUser}
-                />
-                <div className="relative cursor-pointer" onClick={handleCart}>
-                  <FaShoppingCart
-                    className={`text-xl text-black ${
-                      isHomePage && !isScrolled
-                        ? "text-white hover:text-green-500"
-                        : "text-gray-800 hover:text-green-500"
-                    } transition-colors`}
-                  />
-                  <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
-                    {cartCount}
-                  </div>
+      {/* Mobile Sidebar Menu */}
+      <div
+        className={`fixed top-0 left-0 h-full w-3/4 bg-white text-gray-800 transition-transform duration-300 z-50 shadow-lg overflow-y-auto ${
+          openBar ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="p-4">
+          <div className="flex justify-between items-center mb-6">
+            <img src={logo} alt="Logo" className="w-[150px]" />
+            <button onClick={() => setOpenBar(false)} aria-label="Close menu">
+              <HiX className="h-6 w-6 text-gray-800" />
+            </button>
+          </div>
+
+          {/* Mobile Search */}
+          <div className="relative mb-6">
+            <input
+              type="text"
+              placeholder="Search for items..."
+              className="w-full p-2 pl-3 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          </div>
+
+          {/* Mobile User Actions */}
+          <div className="flex justify-around mb-6 border-b pb-4">
+            <div className="flex flex-col items-center">
+              <div className="relative cursor-pointer" onClick={handleFavaurite}>
+                <FaHeart className="text-xl text-gray-800" />
+                <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
+                  {favCount || 0}
                 </div>
               </div>
+              <span className="text-xs mt-1">Wishlist</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <FaUser
+                className="text-xl cursor-pointer text-gray-800"
+                onClick={handleUser}
+              />
+              <span className="text-xs mt-1">Account</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="relative cursor-pointer" onClick={handleCart}>
+                <FaShoppingCart className="text-xl text-gray-800" />
+                <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
+                  {cartCount}
+                </div>
+              </div>
+              <span className="text-xs mt-1">Cart</span>
+            </div>
+          </div>
+
+          {/* Mobile Categories */}
+          <div className="mb-4">
+            <h3 className="font-bold text-lg mb-2">Categories</h3>
+            <div className="space-y-2">
+              {categories.map((category, index) => (
+                <div key={index} className="border-b border-gray-100">
+                  <button
+                    className="w-full flex justify-between items-center py-3 px-2 hover:bg-gray-50 rounded"
+                    onClick={() => toggleMobileCategory(index)}
+                  >
+                    <div className="flex items-center">
+                      {category.icon}
+                      <span className="ml-2 capitalize">{category.name}</span>
+                    </div>
+                    <ChevronRight
+                      className={`w-4 h-4 transition-transform ${
+                        mobileOpenCategory === index ? "rotate-90" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {/* Mobile Subcategories */}
+                  {mobileOpenCategory === index && (
+                    <div className="pl-6 py-2 space-y-2">
+                      <button
+                        className="w-full text-left py-2 px-2 hover:bg-gray-50 rounded font-medium"
+                        onClick={() => handleMainPage(category.name)}
+                      >
+                        View All {category.name}
+                      </button>
+                      {category.subcategories.map((sub, i) => (
+                        <button
+                          key={i}
+                          className="w-full text-left py-2 px-2 hover:bg-gray-50 rounded capitalize"
+                          onClick={() => handleProductType(sub)}
+                        >
+                          {sub}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Auth Button */}
+          <div className="mt-6">
+            {isAuthenticated ? (
+              <button
+                onClick={handleSignOut}
+                className="w-full bg-black text-white py-2.5 rounded-md font-medium"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <Link to="/login">
+                <button className="w-full bg-black text-white py-2.5 rounded-md font-medium">
+                  Sign In
+                </button>
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
-  </div>
-</div>
 
+      {/* Mobile Menu Overlay */}
+      {openBar && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setOpenBar(false)}
+        ></div>
+      )}
 
-      
-
-      {/* Spacer to prevent content from being hidden under the fixed navbar */}
+      {/* Spacer */}
       <div className={`h-${isScrolled ? "16" : "36"} invisible`}></div>
     </div>
   );
