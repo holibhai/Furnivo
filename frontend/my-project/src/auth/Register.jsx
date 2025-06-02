@@ -137,12 +137,12 @@ const Register = () => {
   };
   
   return (
-    <div className=" flex items-center justify-center">
+    <div className="flex items-center justify-center">
                                     <ToastContainer position="top-right" autoClose={3000} />
       
       <div className="flex flex-col lg:flex-row bg-white shadow-2xl  overflow-hidden w-full max-w-[1800px]">
         {/* Image Carousel Side - 2/3 width */}
-        <div className="hidden lg:block lg:w-2/3 relative h-[700px] overflow-hidden">
+        <div className="hidden lg:block lg:w-2/3 relative h-[740px] overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
           <div className="h-full w-full flex">
             {furnitureImages.map((img, index) => (
