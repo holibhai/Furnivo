@@ -100,7 +100,7 @@ const Login = () => {
   };
 
   return (
-    <div className="  flex items-center justify-center">
+    <div className="flex items-center justify-center">
                               <ToastContainer position="top-right" autoClose={3000} />
       
       <div className="flex flex-col lg:flex-row w-full max-w-[1800px]  overflow-hidden shadow-2xl relative">
@@ -147,28 +147,13 @@ const Login = () => {
 
         {/* Form Side - 1/3 width with glass morphism effect */}
         <div className="w-full lg:w-1/3 flex flex-col justify-center relative z-20 ">
-          <div className="bg-white/90 backdrop-blur-lg p-8 md:p-12 rounded-xl lg:rounded-none lg:rounded-r-xl h-full pt-12">
+          <div className="bg-white/90 backdrop-blur-lg p-8 md:p-12 rounded-xl lg:rounded-none lg:rounded-r-xl h-full ">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign In</h1>
               <p className="text-gray-600">Enter your credentials to access your account</p>
             </div>
 
-            {/* {error && (
-              <div className="mb-6 p-3 bg-red-50 text-red-700 rounded-lg flex items-start">
-                <AlertCircle className="flex-shrink-0 h-5 w-5 mt-0.5 mr-2" />
-                <div>{error}</div>
-              </div>
-            )}
-
-            {success && (
-              <div className="mb-6 p-3 bg-green-50 text-green-700 rounded-lg flex items-start">
-                <Check className="flex-shrink-0 h-5 w-5 mt-0.5 mr-2" />
-                <div>
-                  <p className="font-medium">Login successful!</p>
-                  <p className="text-sm">Redirecting you to the homepage...</p>
-                </div>
-              </div>
-            )} */}
+            
 
             <form className="space-y-5" onSubmit={handleSubmit}>
               <div>
