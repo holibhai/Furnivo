@@ -190,4 +190,26 @@ public class UserService implements UserServiceImp {
         return response;
 
     }
+
+    public Response addDate(int userId,LocalDate date) {
+        Response response = new Response();
+        try {
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isPresent()) {
+                user.get().setRegisterDate(date);
+                userRepository.save(user.get());
+                response.setStatusCode(200);
+                response.setMessage("User added successfully");
+            }
+
+        } catch (OurException e) {
+            response.setStatusCode(500);
+            response.setMessage("error in update");
+        }
+        return response;
+    }
+
+
+
+
 }
