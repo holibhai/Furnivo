@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Lob;
 
+import java.time.LocalDate;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserAccountDto {
 
@@ -15,6 +17,7 @@ public class UserAccountDto {
     private String firstName;
     private String lastName;
     private Role role;
+    private LocalDate date;
 //    private Address addressUser;
     private String imageName;
     private String imageType;
@@ -22,20 +25,17 @@ public class UserAccountDto {
     private byte[] imageData;
 
 
-
-//    private AddressDto address;
-
-    public UserAccountDto(int id, String username, String password, String firstName, String lastName, Role role, String imageName, String imageType, byte[] imageData) {
+    public UserAccountDto(int id, String username, String password, String firstName, String lastName, Role role, LocalDate date, String imageName, String imageType, byte[] imageData) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+        this.date = date;
         this.imageName = imageName;
         this.imageType = imageType;
         this.imageData = imageData;
-//        this.address = address;
     }
 
     public
@@ -89,13 +89,7 @@ public class UserAccountDto {
         this.role = role;
     }
 
-//    public AddressDto getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(AddressDto address) {
-//        this.address = address;
-//    }
+
 
 
 
@@ -121,6 +115,14 @@ public class UserAccountDto {
 
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
 
