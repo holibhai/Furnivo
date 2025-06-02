@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -34,5 +36,13 @@ public class UserController {
         System.out.println(user.getPassword());
         return ResponseEntity.ok(userService.updateUser(user,imageFile,userId));
     }
+
+
+    @PutMapping("/updateDate/{userId}/{date}")
+    public ResponseEntity<Response>updateDate(@PathVariable int userId,@PathVariable LocalDate date){
+        System.out.println(date);
+        return ResponseEntity.ok(userService.addDate(userId,date));
+    }
+
 
 }
