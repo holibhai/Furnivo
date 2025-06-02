@@ -19,6 +19,7 @@ public class Utils {
         userAccountDto.setImageData(user.getImageData());
         userAccountDto.setImageName(user.getImageName());
         userAccountDto.setImageType(user.getImageType());
+        userAccountDto.setDate(user.getRegisterDate());
 
         return userAccountDto;
     }
