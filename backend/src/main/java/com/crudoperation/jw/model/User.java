@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class User implements UserDetails {
     private String lastName;
     private String username;
     private String password;
+    private LocalDate registerDate;
 
     @Lob
     private byte[] imageData;
@@ -49,17 +51,17 @@ public class User implements UserDetails {
     private List<Favaurite>favaurites;
 
 
-    public User(int id, String firstName, String lastName, String username, String password, byte[] imageData, String imageName, String imageType, Role role) {
+    public User(int id, String firstName, String lastName, String username, String password, LocalDate registerDate, byte[] imageData, String imageName, String imageType, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+        this.registerDate = registerDate;
         this.imageData = imageData;
         this.imageName = imageName;
         this.imageType = imageType;
         this.role = role;
-//        this.address = address;
     }
 
     public User() {
@@ -169,5 +171,13 @@ public class User implements UserDetails {
 
     public void setImageType(String imageType) {
         this.imageType = imageType;
+    }
+
+    public LocalDate getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(LocalDate registerDate) {
+        this.registerDate = registerDate;
     }
 }
