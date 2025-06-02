@@ -17,7 +17,7 @@ const RatingStars = ({ rating, reviewCount }) => {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   return (
-    <div className="flex items-center mt-1">
+    <div className="flex items-center mt-1 ">
       
       <div className="flex">
         {[...Array(fullStars)].map((_, i) => (
