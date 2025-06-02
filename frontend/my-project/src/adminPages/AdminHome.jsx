@@ -155,7 +155,7 @@ const AdminHome = () => {
       revenue: revenueData
     });
   };
-
+   
   // Process orders by time range
   const processOrdersByTimeRange = (orders, range, endDate) => {
     const dataMap = new Map();
@@ -269,7 +269,7 @@ const AdminHome = () => {
                orderDate.getFullYear() === date.getFullYear();
       });
       
-      const revenue = monthOrders.reduce((sum, order) => sum + order.totalAmount, 0);
+      const revenue = monthOrders.reduce((sum, order) => sum + order.netTotal, 0);
       
       revenueData.push({
         name: monthName,
