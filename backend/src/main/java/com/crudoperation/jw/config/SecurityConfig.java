@@ -79,7 +79,7 @@ public class SecurityConfig {
 
                                 .requestMatchers("/api/order/update/**").hasAuthority("ADMIN")
                                 .requestMatchers("/api/order/updateStatus/**").hasAuthority("ADMIN")
-//                                .requestMatchers("/api/order/getAllOrders/**").hasAuthority("ADMIN")
+                                .requestMatchers("/api/order/getAllOrders/**").hasAuthority("ADMIN")
                                 .requestMatchers("/api/order/delete/**").hasAuthority("ADMIN")
 
                                 .requestMatchers("/api/deliveryCharge/add/**").hasAuthority("ADMIN")
