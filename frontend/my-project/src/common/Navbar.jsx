@@ -31,6 +31,7 @@ const Navbar = () => {
   const { search, setSearch, favCount, setFavCount } = useAppContext();
   const [userDetail, setUserDetail] = useState([]);
   console.log(favCount);
+  const [openBar,setOpenBar]=useState(false);
 
   const [categories, setCategories] = useState([
     {
@@ -254,10 +255,10 @@ const Navbar = () => {
           </div>
 
           <button
-            className="md:hidden p-2 mt-5"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 ml-52"
+            onClick={() =>setOpenBar(!openBar)}
           >
-            {isMenuOpen ? (
+            {openBar ? (
               <HiX
                 className={`h-6 w-6 ${
                   isHomePage ? "text-white" : "text-gray-800"
@@ -313,7 +314,7 @@ const Navbar = () => {
 
       {/* Category Bar - Always sticky */}
       <div
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 hidden md:block  ${
           isScrolled ? "top-0" : "md:top-20 top-16"
         } ${
           isHomePage && !isScrolled ? "" : "bg-white border-b border-gray-200"
@@ -521,6 +522,60 @@ const Navbar = () => {
           )}
         </div>
       </div>
+    <div
+  className={`fixed top-0 left-0 h-full w-9/12 bg-gray-600 text-white transition-transform duration-300 z-50 shadow-lg ${
+    openBar ? 'translate-x-0' : '-translate-x-full'
+  }`}
+>
+  <div className="">
+      <div className="flex justify-between items-center mr-10 overflow-hiddenr">
+          <h1>
+              <img src={logo} alt="" className="w-[180px] " />
+            </h1>
+
+               <div className="flex items-center space-x-6">
+                <div
+                  className="relative cursor-pointer"
+                  onClick={handleFavaurite}
+                >
+                  <FaHeart
+                    className={`text-xl text-black ${
+                      isHomePage && !isScrolled
+                        ? "text-white hover:text-green-500"
+                        : "text-gray-800 hover:text-green-500"
+                    } transition-colors`}
+                  />
+                  <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
+                    {favCount || 0}
+                  </div>
+                </div>
+                <FaUser
+                  className={`text-xl cursor-pointer text-black ${
+                    isHomePage && !isScrolled
+                      ? "text-white hover:text-blue-500"
+                      : "text-gray-800 hover:text-blue-500"
+                  } transition-colors`}
+                  onClick={handleUser}
+                />
+                <div className="relative cursor-pointer" onClick={handleCart}>
+                  <FaShoppingCart
+                    className={`text-xl text-black ${
+                      isHomePage && !isScrolled
+                        ? "text-white hover:text-green-500"
+                        : "text-gray-800 hover:text-green-500"
+                    } transition-colors`}
+                  />
+                  <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
+                    {cartCount}
+                  </div>
+                </div>
+              </div>
+      </div>
+  </div>
+</div>
+
+
+      
 
       {/* Spacer to prevent content from being hidden under the fixed navbar */}
       <div className={`h-${isScrolled ? "16" : "36"} invisible`}></div>
