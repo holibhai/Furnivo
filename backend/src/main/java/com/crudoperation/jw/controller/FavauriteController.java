@@ -27,4 +27,5 @@ public class FavauriteController {
     public ResponseEntity<Response>deleteFavaurite(@PathVariable int productId){
         return ResponseEntity.ok(favauriteService.deleteFav(productId));
     }
+
 }
