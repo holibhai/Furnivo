@@ -58,10 +58,7 @@ public class UserService implements UserServiceImp {
                 throw new OurException("User already exists");
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-//            Address address = user.getAddress();
-//            if(address != null) {
-//                address.setUser(user);
-//            }
+
             LocalDate localDate = LocalDate.now();
             user.setRegisterDate(localDate);
             User savedUser = userRepository.save(user);
