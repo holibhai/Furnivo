@@ -20,8 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -60,7 +62,8 @@ public class UserService implements UserServiceImp {
 //            if(address != null) {
 //                address.setUser(user);
 //            }
-
+            LocalDate localDate = LocalDate.now();
+            user.setRegisterDate(localDate);
             User savedUser = userRepository.save(user);
             UserAccountDto userAccountDto= Utils.mapUserEntityToUserDTO(savedUser);
             response.setStatusCode(200);
