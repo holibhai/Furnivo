@@ -4,6 +4,7 @@ import com.crudoperation.jw.dto.DeliveryChargeDto;
 import com.crudoperation.jw.dto.Response;
 import com.crudoperation.jw.model.DeliveryCharge;
 import com.crudoperation.jw.repo.DeliveryChargeRepository;
+import com.crudoperation.jw.service.servicesInterface.DeliveryChargeServiceImpl;
 import com.crudoperation.jw.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DeliveryChargeService {
+public class DeliveryChargeService implements DeliveryChargeServiceImpl {
 
     @Autowired
     private DeliveryChargeRepository deliveryChargeRepository;
