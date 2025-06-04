@@ -8,6 +8,7 @@ import com.crudoperation.jw.model.Order;
 import com.crudoperation.jw.model.User;
 import com.crudoperation.jw.repo.OrderRepository;
 import com.crudoperation.jw.repo.UserRepository;
+import com.crudoperation.jw.service.servicesInterface.OrderServiceImpl;
 import com.crudoperation.jw.utils.OrderIdGenerator;
 import com.crudoperation.jw.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrderService {
+public class OrderService implements OrderServiceImpl {
 
     @Autowired
     private OrderRepository orderRepository;
