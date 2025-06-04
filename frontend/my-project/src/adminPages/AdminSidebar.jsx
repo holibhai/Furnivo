@@ -9,7 +9,11 @@ import {
   UserCog,
   User,
   BarChart3,
-  Truck
+  Truck,
+  ClipboardMinus,
+  Star,
+   PersonStanding,
+    Archive
 } from "lucide-react";
 import logo from "../assets/Cream_and_Brown_Minimalist_Furniture_Logo-removebg-preview (1).png"
 
@@ -50,7 +54,7 @@ const AdminSidebar = () => {
         to="/admin/displayOrders"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
       >
-        <List size={18} /> Orders
+        < Archive size={18} /> Orders
       </NavLink>
 
       {/* Delivery Cost */}
@@ -82,7 +86,7 @@ const AdminSidebar = () => {
         to="/admin/reports"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
       >
-        <BarChart3 size={18} /> Reports
+        <ClipboardMinus size={18} /> Reports
       </NavLink>
 
       {/* Review */}
@@ -90,13 +94,13 @@ const AdminSidebar = () => {
         to="/admin/reviewAdmin"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
       >
-        <Settings size={18} /> Review
+        <Star size={18} /> Review
       </NavLink>
        <NavLink
         to="/admin/profile"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
       >
-        <Settings size={18} /> Profile
+        <PersonStanding size={18} /> Profile
       </NavLink>
 
       {/* Logout */}
