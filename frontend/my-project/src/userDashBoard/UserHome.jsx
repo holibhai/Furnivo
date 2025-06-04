@@ -14,16 +14,18 @@ import {
   Camera,
   X,
   EyeOff,
-} from "lucide-react";
+} from "lucide-react"; // Replaced react-icons/fi with lucide-react
 
 const UserHome = () => {
+  // State variables for user data, orders, reviews, loading status, active tab, and profile update modal
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("orders");
-  const [showProfileModal, setShowProfileModal] = useState(false); 
+  const [showProfileModal, setShowProfileModal] = useState(false); // Renamed pCart to showProfileModal for clarity
 
+  // State for image preview and profile form data
   const [previewImage, setPreviewImage] = useState("");
   const [profileData, setProfileData] = useState({
     firstName: "",
@@ -33,16 +35,18 @@ const UserHome = () => {
     image: null,
   });
 
+  // State for password visibility and upload status
   const [showPassword, setShowPassword] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  console.log("saddiiddi")
 
+  // useEffect hook to fetch initial data when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userId = localStorage.getItem("userId");
         const token = localStorage.getItem("token");
 
+        // Fetch user details
         const userResponse = await axios.get(
           `http://localhost:8080/api/user/getUser/${userId}`,
           {
@@ -52,18 +56,21 @@ const UserHome = () => {
             },
           }
         );
+        setUser(userResponse.data.userAccountDto);
         // Initialize profileData with fetched user details
         setProfileData({
           firstName: userResponse.data.userAccountDto?.firstName || "",
           lastName: userResponse.data.userAccountDto?.lastName || "",
-          username: userResponse.data.userAccountDto?.username || "", 
-          username: "",
-          image: null, 
+          username: userResponse.data.userAccountDto?.username || "", // Assuming username is username
+          username: "", // Username should never be pre-filled for security reasons
+          image: null, // Image will be handled separately
         });
+        // Set initial preview image if user has one
         if (userResponse.data.userAccountDto?.imageUrl) {
           setPreviewImage(userResponse.data.userAccountDto.imageUrl);
         }
 
+        // Fetch orders
         const ordersResponse = await axios.get(
           `http://localhost:8080/api/order/getAllOrders/${userId}`,
           {
@@ -75,6 +82,7 @@ const UserHome = () => {
         );
         setOrders(ordersResponse.data.orderDtoList || []);
 
+        // Fetch reviews
         const reviewsResponse = await axios.get(
           `http://localhost:8080/api/review/user/${userId}`,
           {
@@ -86,49 +94,54 @@ const UserHome = () => {
         );
         setReviews(reviewsResponse.data || []);
 
-        setLoading(false); 
+        setLoading(false); // Set loading to false after all data is fetched
       } catch (error) {
         console.error("Error fetching data", error);
-        setLoading(false); 
+        setLoading(false); // Ensure loading is set to false even if there's an error
       }
     };
 
     fetchData();
-  }, []); 
+  }, []); // Empty dependency array means this effect runs once on mount
 
+  // Handler for image input change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setProfileData({ ...profileData, image: file }); 
+    setProfileData({ ...profileData, image: file }); // Store the file object
     const reader = new FileReader();
-    reader.onloadend = () => setPreviewImage(reader.result); 
-    if (file) reader.readAsDataURL(file); 
+    reader.onloadend = () => setPreviewImage(reader.result); // Set image preview
+    if (file) reader.readAsDataURL(file); // Read file as data URL for preview
   };
 
+  // Handler to remove the selected image
   const removeImage = () => {
-    setPreviewImage(""); 
-    setProfileData({ ...profileData, image: null });
+    setPreviewImage(""); // Clear image preview
+    setProfileData({ ...profileData, image: null }); // Clear image file from state
   };
 
+  // Handler for text input changes in the profile form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfileData({ ...profileData, [name]: value });
   };
 
+  // Handler for submitting the profile update form
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault(); // Prevent default form submission behavior
 
     const formData = new FormData();
+    // Append user data as a Blob with application/json content type
     formData.append(
       "user",
       new Blob([JSON.stringify(profileData)], { type: "application/json" })
     );
-    
+    // Append image file if it exists
     if (profileData.image) {
       formData.append("imageFile", profileData.image);
     }
 
     try {
-      setIsUploading(true); 
+      setIsUploading(true); // Set uploading state to true
       const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("token");
 
@@ -137,13 +150,14 @@ const UserHome = () => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", 
+            "Content-Type": "multipart/form-data", // Important for FormData
             Authorization: `Bearer ${token}`,
           },
         }
       );
       console.log("Profile updated successfully", response.data);
 
+      // Re-fetch user data to update the displayed profile information
       const userResponse = await axios.get(
         `http://localhost:8080/api/user/getUser/${userId}`,
         {
@@ -154,27 +168,30 @@ const UserHome = () => {
         }
       );
       setUser(userResponse.data.userAccountDto);
+      // Update profileData state with new user info, especially if image URL changed
       setProfileData({
         firstName: userResponse.data.userAccountDto?.firstName || "",
         lastName: userResponse.data.userAccountDto?.lastName || "",
         username: userResponse.data.userAccountDto?.username || "",
-        username: "",
-        image: null, 
+        username: "", // Keep username empty
+        image: null, // Clear image file after upload
       });
       if (userResponse.data.userAccountDto?.imageUrl) {
         setPreviewImage(userResponse.data.userAccountDto.imageUrl);
       } else {
-        setPreviewImage(""); 
+        setPreviewImage(""); // Clear preview if no image
       }
 
-      setShowProfileModal(false);
+      setShowProfileModal(false); // Close the profile update modal on success
     } catch (error) {
       console.error("Error updating profile", error);
+      // Implement user-friendly error display here (e.g., a toast notification)
     } finally {
-      setIsUploading(false);
+      setIsUploading(false); // Set uploading state to false
     }
   };
 
+  // Helper function to determine status badge color
   const getStatusColor = (status) => {
     switch (status) {
       case "PROCESSING":
@@ -190,6 +207,7 @@ const UserHome = () => {
     }
   };
 
+  // Helper function to render star ratings using inline SVGs
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -197,6 +215,7 @@ const UserHome = () => {
 
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
+        // Full star SVG
         stars.push(
           <svg
             key={i}
@@ -208,6 +227,7 @@ const UserHome = () => {
           </svg>
         );
       } else if (i === fullStars + 1 && hasHalfStar) {
+        // Half star SVG
         stars.push(
           <svg
             key={i}
@@ -232,6 +252,7 @@ const UserHome = () => {
           </svg>
         );
       } else {
+        // Empty star SVG
         stars.push(
           <svg
             key={i}
@@ -253,6 +274,7 @@ const UserHome = () => {
     return stars;
   };
 
+  // Show a loading spinner while data is being fetched
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
@@ -266,6 +288,7 @@ const UserHome = () => {
     );
   }
 
+  // Handler to open the profile update modal
   const handleProfileClick = () => {
     setShowProfileModal(true);
   };
@@ -273,6 +296,7 @@ const UserHome = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8 px-4 sm:px-6 lg:px-8 font-inter">
       <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
       <div className="flex justify-between items-center mb-10">
   <div className="mb-8">
     <h1 className="text-3xl font-bold text-gray-900">
@@ -305,7 +329,9 @@ const UserHome = () => {
 </div>
 
 
+        {/* Stats Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Total Orders Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center hover:shadow-md transition-shadow">
             <div className="p-3 rounded-full bg-blue-50 text-blue-600 mr-4">
               <ShoppingBag size={24} />
@@ -318,6 +344,7 @@ const UserHome = () => {
             </div>
           </div>
 
+          {/* Reviews Given Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center hover:shadow-md transition-shadow">
             <div className="p-3 rounded-full bg-purple-50 text-purple-600 mr-4">
               <Star size={24} />
@@ -330,6 +357,7 @@ const UserHome = () => {
             </div>
           </div>
 
+          {/* Account Status Card */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center hover:shadow-md transition-shadow">
             <div className="p-3 rounded-full bg-emerald-50 text-emerald-600 mr-4">
               <User size={24} />
@@ -343,7 +371,9 @@ const UserHome = () => {
           </div>
         </div>
 
+        {/* Main Content Area with Tabs */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          {/* Tabs Navigation */}
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px">
               <button
@@ -382,7 +412,9 @@ const UserHome = () => {
             </nav>
           </div>
 
+          {/* Tab Content Area */}
           <div className="p-6">
+            {/* Orders Tab Content */}
             {activeTab === "orders" && (
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
@@ -537,6 +569,7 @@ const UserHome = () => {
               </div>
             )}
 
+            {/* Reviews Tab Content */}
             {activeTab === "reviews" && (
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
@@ -606,6 +639,7 @@ const UserHome = () => {
               </div>
             )}
 
+            {/* Profile Tab Content */}
             {activeTab === "profile" && user && (
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
@@ -703,6 +737,7 @@ const UserHome = () => {
         </div>
       </div>
 
+      {/* Profile Update Modal */}
       {showProfileModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
@@ -719,6 +754,7 @@ const UserHome = () => {
             </div>
 
             <div className="p-6">
+              {/* Profile Image Upload */}
               <div className="flex flex-col items-center mb-8">
                 <div className="relative group">
                   <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
@@ -763,6 +799,7 @@ const UserHome = () => {
                 </p>
               </div>
 
+              {/* Form Fields */}
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
                   <label
