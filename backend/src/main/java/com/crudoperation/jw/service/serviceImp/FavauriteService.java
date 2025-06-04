@@ -6,6 +6,7 @@ import com.crudoperation.jw.model.Favaurite;
 import com.crudoperation.jw.model.User;
 import com.crudoperation.jw.repo.FavauriteRepository;
 import com.crudoperation.jw.repo.UserRepository;
+import com.crudoperation.jw.service.servicesInterface.FavouriteImpl;
 import com.crudoperation.jw.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FavauriteService {
+public class FavauriteService implements FavouriteImpl {
 
     @Autowired
     private FavauriteRepository favauriteRepository;
