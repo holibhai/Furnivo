@@ -26,6 +26,12 @@ const Admin = () => {
     role: 'ADMIN'
   });
 
+  // Function to generate random profile pictures based on name
+  const getProfilePicture = (firstName, lastName) => {
+    const name = `${firstName}+${lastName}`;
+    return `https://ui-avatars.com/api/?name=${name}&background=random&size=128&rounded=true&color=fff`;
+  };
+
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
@@ -101,8 +107,7 @@ const Admin = () => {
       }
     } catch (err) {
       console.error('Error adding admin:', err);
-    //   setError('Failed to add new admin');
-    alert("failed")
+      alert("failed")
     }
   };
 
@@ -172,9 +177,11 @@ const Admin = () => {
           {currentAdmin && (
             <div className="flex items-center space-x-4">
               <div className="flex items-center">
-                <div className="bg-blue-100 p-2 rounded-full">
-                  <Shield className="text-blue-600" size={24} />
-                </div>
+                <img 
+                  src={getProfilePicture(currentAdmin.firstName, currentAdmin.lastName)} 
+                  alt="Profile" 
+                  className="h-10 w-10 rounded-full"
+                />
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-500">Logged in as</p>
                   <p className="text-lg font-semibold text-gray-800">
@@ -230,9 +237,11 @@ const Admin = () => {
                     <tr key={admin.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center">
-                            <User className="text-purple-600" size={18} />
-                          </div>
+                          <img 
+                            src={getProfilePicture(admin.firstName, admin.lastName)} 
+                            alt="Profile" 
+                            className="h-10 w-10 rounded-full"
+                          />
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">
                               {admin.firstName} {admin.lastName}
@@ -372,9 +381,11 @@ const Admin = () => {
             
             <div className="space-y-4">
               <div className="flex items-center justify-center">
-                <div className="bg-purple-100 p-4 rounded-full">
-                  <User className="text-purple-600" size={32} />
-                </div>
+                <img 
+                  src={getProfilePicture(selectedAdmin.firstName, selectedAdmin.lastName)} 
+                  alt="Profile" 
+                  className="h-24 w-24 rounded-full"
+                />
               </div>
               
               <div className="grid grid-cols-2 gap-4">
