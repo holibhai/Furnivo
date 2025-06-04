@@ -25,7 +25,6 @@ import java.util.Collections;
 @EnableAspectJAutoProxy
 public class SecurityConfig {
     private final UserDetailsImp userDetailsImp;
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public SecurityConfig(UserDetailsImp userDetailsImp, JwtAuthenticationFilter jwtAuthenticationFilter) {
@@ -33,10 +32,8 @@ public class SecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         return http
 
                 .csrf(AbstractHttpConfigurer::disable)
