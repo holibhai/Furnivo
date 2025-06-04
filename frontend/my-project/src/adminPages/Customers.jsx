@@ -32,6 +32,12 @@ const Customers = () => {
     }
   });
 
+  // Function to generate random profile pictures based on name
+  const getProfilePicture = (firstName, lastName) => {
+    const name = `${firstName}+${lastName}`;
+    return `https://ui-avatars.com/api/?name=${name}&background=random&size=128&rounded=true&color=fff`;
+  };
+
   // Error handling wrapper
   const handleApiCall = async (apiCall, successMessage, errorMessage) => {
     try {
@@ -98,19 +104,6 @@ const Customers = () => {
     setShowDetailsModal(true);
   };
 
-  // Generate random avatar color based on customer ID
-  const getAvatarColor = (id) => {
-    const colors = [
-      'bg-blue-100 text-blue-600',
-      'bg-green-100 text-green-600',
-      'bg-purple-100 text-purple-600',
-      'bg-pink-100 text-pink-600',
-      'bg-indigo-100 text-indigo-600',
-      'bg-yellow-100 text-yellow-600'
-    ];
-    return colors[id % colors.length];
-  };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -134,7 +127,7 @@ const Customers = () => {
   }
 
   return (
-    <div className="min-h-screen  p-6">
+    <div className="min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
@@ -220,15 +213,17 @@ const Customers = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
-              <tbody className=" divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-200">
                 {customers.length > 0 ? (
                   customers.map((customer) => (
                     <tr key={customer.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className={`flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center ${getAvatarColor(customer.id)}`}>
-                            <User size={18} />
-                          </div>
+                          <img 
+                            src={getProfilePicture(customer.firstName, customer.lastName)} 
+                            alt="Profile" 
+                            className="h-10 w-10 rounded-full"
+                          />
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">
                               {customer.firstName} {customer.lastName}
@@ -282,7 +277,7 @@ const Customers = () => {
       {/* Customer Details Modal */}
       {showDetailsModal && selectedCustomer && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className=" rounded-lg shadow-xl max-w-md w-full p-6">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-800">Customer Details</h3>
               <button
@@ -295,9 +290,11 @@ const Customers = () => {
             
             <div className="space-y-6">
               <div className="flex flex-col items-center">
-                <div className={`h-20 w-20 rounded-full flex items-center justify-center ${getAvatarColor(selectedCustomer.id)} mb-4`}>
-                  <User size={32} />
-                </div>
+                <img 
+                  src={getProfilePicture(selectedCustomer.firstName, selectedCustomer.lastName)} 
+                  alt="Profile" 
+                  className="h-20 w-20 rounded-full mb-4"
+                />
                 <h4 className="text-xl font-semibold text-gray-800">
                   {selectedCustomer.firstName} {selectedCustomer.lastName}
                 </h4>
