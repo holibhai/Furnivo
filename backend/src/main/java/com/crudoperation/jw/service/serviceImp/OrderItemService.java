@@ -5,6 +5,7 @@ import com.crudoperation.jw.model.Order;
 import com.crudoperation.jw.model.OrderItem;
 import com.crudoperation.jw.repo.OrderItemRepository;
 import com.crudoperation.jw.repo.OrderRepository;
+import com.crudoperation.jw.service.servicesInterface.OrderItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrderItemService {
+public class OrderItemService implements OrderItemServiceImpl {
 
     @Autowired
     private OrderItemRepository repository;
