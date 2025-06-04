@@ -8,6 +8,7 @@ import com.crudoperation.jw.model.User;
 import com.crudoperation.jw.repo.BillingRepository;
 import com.crudoperation.jw.repo.DeliveryRepository;
 import com.crudoperation.jw.repo.UserRepository;
+import com.crudoperation.jw.service.servicesInterface.BillingServiceImp;
 import com.crudoperation.jw.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class BillingService {
+public class BillingService implements BillingServiceImp {
 
     @Autowired
     private BillingRepository billingRepository;
