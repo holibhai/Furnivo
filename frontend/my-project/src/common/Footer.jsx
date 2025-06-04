@@ -35,7 +35,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full min-h-screen bg-gray-700 flex flex-col mt-12">
+    <footer className="w-full bg-gray-800 flex flex-col mt-12">
       {/* Main Footer Content */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-4">
         {/* Left Content (2/4 width) */}
@@ -45,10 +45,10 @@ const Footer = () => {
             <div className="mb-16">
               <div className="flex items-center gap-3">
                 <h1 className="text-4xl md:text-5xl font-bold text-white">
-                  <img src={logo} alt="" className="-mb-28 -mt-36" />
+                  <img src={logo} alt="" className="-mb-28 -mt-32 w-[250px] " />
                 </h1>
               </div>
-              <p className="text-gray-400 mt-6 max-w-2xl text-base">
+              <p className="text-gray-400 mt-12 max-w-2xl text-base ">
                 Elevating your space with handcrafted furniture that combines timeless design with modern functionality.
                 Each piece is meticulously crafted to bring warmth and character to your home.
               </p>
