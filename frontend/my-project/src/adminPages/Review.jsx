@@ -85,8 +85,8 @@ const Review = () => {
       
       const matchesStatus = 
         selectedStatus === 'All' || 
-        review.status === selectedStatus ||
-        (selectedStatus === 'post' && !review.status);
+        (selectedStatus === 'post' && (review.status === 'post' || !review.status)) ||
+        (selectedStatus === 'not post' && review.status === 'not post');
       
       return matchesSearch && matchesStatus;
     });
@@ -94,17 +94,18 @@ const Review = () => {
   }, [searchText, selectedStatus, reviews, products]);
 
   const handleStatusToggle = async (reviewId, currentStatus) => {
-    console.log(reviewId);
     try {
       setIsLoading(true);
       const newStatus = currentStatus === 'post' ? 'not post' : 'post';
       
       await axios.put(
-        `http://localhost:8080/api/review/status/${reviewId}`,
-         {
+        `http://localhost:8080/api/review/updateStatus/${reviewId}`,
+        { status: newStatus },
+        {
           headers: {
-             Authorization:`Bearer ${localStorage.getItem('token')}`,
-          },
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
         }
       );
 
@@ -169,7 +170,6 @@ const Review = () => {
     setSelectedReview(null);
   };
 
-  // Toggle switch component
   const StatusToggle = ({ isActive, onChange }) => {
     return (
       <button
