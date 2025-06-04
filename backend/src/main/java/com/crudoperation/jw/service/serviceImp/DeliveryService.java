@@ -3,11 +3,12 @@ package com.crudoperation.jw.service.serviceImp;
 import com.crudoperation.jw.dto.Response;
 import com.crudoperation.jw.model.Delivery;
 import com.crudoperation.jw.repo.DeliveryRepository;
+import com.crudoperation.jw.service.servicesInterface.DeliveryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DeliveryService {
+public class DeliveryService implements DeliveryServiceImpl {
 
     @Autowired
     private DeliveryRepository deliveryRepository;
