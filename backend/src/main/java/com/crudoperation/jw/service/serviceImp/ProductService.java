@@ -6,6 +6,7 @@ import com.crudoperation.jw.exception.OurException;
 import com.crudoperation.jw.model.Catagorie;
 import com.crudoperation.jw.model.Product;
 import com.crudoperation.jw.repo.ProductRepository;
+import com.crudoperation.jw.service.servicesInterface.ProductServiceImpl;
 import com.crudoperation.jw.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class ProductService implements ProductServiceImpl {
 
     @Autowired
     private ProductRepository productRepository;
