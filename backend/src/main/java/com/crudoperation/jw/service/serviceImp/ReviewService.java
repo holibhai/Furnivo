@@ -2,6 +2,7 @@ package com.crudoperation.jw.service.serviceImp;
 
 import com.crudoperation.jw.model.Review;
 import com.crudoperation.jw.repo.ReviewRepository;
+import com.crudoperation.jw.service.servicesInterface.ReviewImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ReviewService {
+public class ReviewService implements ReviewImpl {
 
     @Autowired
     private ReviewRepository reviewRepository;
