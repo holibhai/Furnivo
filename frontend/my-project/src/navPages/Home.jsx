@@ -30,6 +30,9 @@ import homedecor from "../assets/home-decor_7904097.png";
 import besideTable from "../assets/bedside-table_1863230.png";
 import dressTable from "../assets/dressing-table_11053044.png";
 import sofa from "../assets/sofa_1483774.png";
+
+import dine from "../assets/photo-1610809026329-2b7b713a986c.avif";
+
 const Home = () => {
   // Hero slider data
   const slides = [
@@ -111,11 +114,11 @@ const Home = () => {
         prev === businessImages.length - 1 ? 0 : prev + 1
       );
     }, 3000); // Change every 3 seconds
-
+    
     return () => clearInterval(interval);
   }, [businessImages.length]);
-
-  // Testimonials data
+     
+  // Testimonials data  
   const testimonials = [
     {
       id: 1,
@@ -142,7 +145,7 @@ const Home = () => {
       rating: 5,
     },
   ];
-
+  
   // Featured products data
   const featuredProducts = [
     {
@@ -438,7 +441,7 @@ const Home = () => {
       </section>
 
       <section>
-        <div className="bg-neutral-700 fle h-[1000px] flex-col relative py-80">
+        <div className="bg-neutral-700 fle h-[1100px] flex-col relative py-96">
           <div className="rounded-xl absolute -top-60 px-20">
             <img src={kitchen} alt="" className="rounded-xl  bg-black inset-0 bg-opacity-35" />
             <div className="grid grid-cols-2 gap-10 py-20">
@@ -450,7 +453,7 @@ const Home = () => {
                   <br /> for free.
                 </p>
                 <div className="py-10">
-                  <span className="border border-red-600  rounded-full text-red-600 py-2 px-6 inline">
+                  <span className="border bg-white rounded-full text-red-600  font-semibold py-2 px-6 inline">
                     Join Us Now
                   </span>
                 </div>
@@ -524,10 +527,10 @@ const Home = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
       {/* News Item 1 - Seasonal Furniture Care */}
       <div className="bg-white  overflow-hidden rounded-2xl transition-shadow duration-300">
-        <img 
+        <img  
           src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZSUyMGNhcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" 
           alt="Person cleaning wooden furniture"
-          className="w-full h-[400px] object-cover rounded-2xl  "
+          className="w-full h-[400px] object-cover rounded-2xl"
         />
         <div className="p-6">
           <div className="flex items-center text-sm text-gray-500 mb-2">
