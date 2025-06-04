@@ -21,6 +21,8 @@ import BedroomImage from "../assets/photo-1644057501622-dfa7dd26dbfb.avif";
 import KitchenImage from "../assets/photo-1713707131805-f0d7d7432598.avif";
 import OfficeImage from "../assets/armchair-green-living-room-with-copy-space_43614-910.jpg";
 import logo from "../assets/Cream_and_Brown_Minimalist_Furniture_Logo-removebg-preview (1).png";
+import dine from "../assets/photo-1610809026329-2b7b713a986c.avif";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -44,7 +46,7 @@ const Navbar = () => {
     {
       name: "dining",
       subcategories: [],
-      image: DiningRoomImage,
+      image: dine,
       description: "Elegant dining sets for memorable meals",
       icon: <FaUtensils className="inline mr-2" />,
     },
