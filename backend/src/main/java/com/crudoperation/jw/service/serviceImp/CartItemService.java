@@ -8,6 +8,7 @@ import com.crudoperation.jw.model.User;
 import com.crudoperation.jw.repo.CartItemRepository;
 import com.crudoperation.jw.repo.ProductRepository;
 import com.crudoperation.jw.repo.UserRepository;
+import com.crudoperation.jw.service.servicesInterface.CartItemImpl;
 import com.crudoperation.jw.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CartItemService {
+public class CartItemService implements CartItemImpl {
 
     @Autowired
     public CartItemRepository cartItemRepository;
