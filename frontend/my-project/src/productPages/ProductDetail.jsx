@@ -323,7 +323,7 @@ const ProductDetail = () => {
   ];
 
   return (
-    <div className="mt-56">
+    <div className="md:mt-52 mt-28">
       <ToastContainer 
         position="top-right"
         autoClose={3000}
@@ -349,12 +349,12 @@ const ProductDetail = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Image Gallery */}
-          <div className="sticky top-24 self-start">
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-4">
+          <div className="md:sticky top-24 self-start">
+            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-4 md:h-[300px]">
               <img
                 src={`data:${product.imageType};base64,${product.imageData}`}
                 alt={product.productName}
-                className="w-full h-auto object-cover transition-opacity duration-300"
+                className="md:w-full md:h-auto object-cover transition-opacity duration-300 h-[300px] w-full"
                 onError={(e) => {
                   e.target.src = "https://via.placeholder.com/600x600?text=Product+Image";
                 }}
