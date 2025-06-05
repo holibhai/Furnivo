@@ -283,7 +283,7 @@ const Billing = () => {
   };
 
   return (
-    <div className=" mx-28   py-12 mt-44">
+    <div className=" md:mx-28   py-12 md:mt-44 mx-5 mt-20">
       <ToastContainer position="top-right" autoClose={3000} />
       
       {/* Breadcrumbs */}
