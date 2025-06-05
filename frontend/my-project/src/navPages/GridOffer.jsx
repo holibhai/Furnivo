@@ -53,7 +53,6 @@ const GridOffer = () => {
   return (
     <section className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-red-50 text-red-500 rounded-full text-sm font-medium tracking-wider mb-4">
             NEW COLLECTION
@@ -67,9 +66,7 @@ const GridOffer = () => {
           </p>
         </div>
 
-        {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Full Height Promo */}
           <div className="lg:col-span-1 relative rounded-2xl overflow-hidden h-[800px] group">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10"></div>
             <img
@@ -91,7 +88,6 @@ const GridOffer = () => {
             </div>
           </div>
 
-          {/* Right Column - 4 items in 2x2 grid */}
           <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 h-[800px]">
             {furnitureItems.slice(1, 5).map((item) => (
               <div key={item.id} className="relative rounded-2xl overflow-hidden h-full group">
@@ -119,7 +115,6 @@ const GridOffer = () => {
           </div>
         </div>
 
-        {/* View All Button */}
         <div className="text-center mt-12">
           <button className="inline-flex items-center px-8 py-3 border border-gray-300 rounded-full text-base font-medium text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition-colors duration-300">
             View all collections
