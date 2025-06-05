@@ -147,9 +147,9 @@ const Login = () => {
 
         {/* Form Side - 1/3 width with glass morphism effect */}
         <div className="w-full lg:w-1/3 flex flex-col justify-center relative z-20 ">
-          <div className="bg-white/90 backdrop-blur-lg p-8 md:p-12 rounded-xl lg:rounded-none lg:rounded-r-xl h-full ">
+          <div className="bg-white backdrop-blur-lg p-8 md:p-12 rounded-xl lg:rounded-none lg:rounded-r-xl h-full ">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">Sign In</h1>
+              <h1 className="text-3xl font-bold text-gray-800 mb-2 mt-20">Sign In</h1>
               <p className="text-gray-600">Enter your credentials to access your account</p>
             </div>
 
