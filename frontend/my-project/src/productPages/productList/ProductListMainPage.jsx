@@ -56,7 +56,7 @@ const ProductListMainPage = ({search,setSearch}) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:w-3/4 md:gap-3 md:border-l border-gray-300 md:px-3 md:pl-10 mt-20">
+        <div className="flex flex-col md:w-3/4 md:gap-3 md:border-l border-gray-300 md:px-3 md:pl-10 ">
             <div className="flex items-center md:gap-3  py-3  ">
                <Grid3x3 className="cursor-pointer" onClick={handleDisplayType}/>
                <List  className="cursor-pointer" onClick={handleDisplayType}/>
