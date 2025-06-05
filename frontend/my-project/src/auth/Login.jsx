@@ -6,7 +6,6 @@ import { Loader2, Eye, EyeOff, AlertCircle, Check } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Import furniture images (replace with your actual image imports)
 import furnitureLogin1 from '../assets/photo-1627226325480-f46163bc38c2.avif';
 import furnitureLogin2 from '../assets/photo-1713707131805-f0d7d7432598.avif';
 import furnitureLogin3 from '../assets/photo-1643999440226-7290747ef45f.avif';
@@ -23,14 +22,12 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Furniture images for the carousel
   const furnitureImages = [
     furnitureLogin1,
     furnitureLogin2,
     furnitureLogin3,
   ];
 
-  // Rotate images every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % furnitureImages.length);
@@ -44,7 +41,6 @@ const Login = () => {
       ...formData,
       [name]: value,
     });
-    // Clear error when user types
     if (error) setError('');
   };
 
@@ -75,7 +71,6 @@ const Login = () => {
       const data = response.data;
       console.log(data);
       
-      // Store user data
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', data.userAccountDto.role);
       localStorage.setItem('userId', data.userAccountDto.id);
@@ -104,7 +99,6 @@ const Login = () => {
                               <ToastContainer position="top-right" autoClose={3000} />
       
       <div className="flex flex-col lg:flex-row w-full max-w-[1800px]  overflow-hidden shadow-2xl relative">
-        {/* Image Carousel Side - Full width background */}
         <div className="hidden lg:block absolute inset-0 w-full h-full">
           <div className="h-full w-full">
             {furnitureImages.map((img, index) => (
@@ -125,7 +119,6 @@ const Login = () => {
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
 
-        {/* Image Carousel Content - 2/3 width */}
         <div className="hidden lg:flex lg:w-2/3 relative h-[750px] items-end p-12 z-10">
           <div className="w-full">
             <div className="flex justify-center space-x-2 mb-8">
@@ -145,7 +138,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Form Side - 1/3 width with glass morphism effect */}
         <div className="w-full lg:w-1/3 flex flex-col justify-center relative z-20 ">
           <div className="bg-white backdrop-blur-lg p-8 md:p-12 rounded-xl lg:rounded-none lg:rounded-r-xl h-full ">
             <div className="text-center mb-8">
