@@ -176,7 +176,7 @@ const CheckOut = () => {
   };
 
   return (
-    <div className="mt-56 mx-6 md:mx-12 lg:mx-24">
+    <div className="md:mt-56 mx-6 md:mx-12 lg:mx-24 mt-32">
         <div className="container mx-auto px-4 py-3 text-sm text-gray-600">
               <Link to="/" className="hover:text-blue-600">Home</Link>
               <span className="mx-2">/</span>
@@ -209,7 +209,7 @@ const CheckOut = () => {
                     <img
                       src={`data:${item.imageType};base64,${item.imageData}`}
                       alt={item.productName}
-                      className="w-32 h-32 object-cover rounded-md"
+                      className="md:w-32 md:h-32  object-cover rounded-md "
                     />        
                   </td>
                   <td className="py-4 px-6">{item.productName}</td>
@@ -269,12 +269,12 @@ const CheckOut = () => {
           >
             RETURN TO SHOP
           </button>
-          <button
+          {/* <button
             className="bg-gray-700 p-4 text-white text-xs font-semibold"
             onClick={fetchData}
           >
             UPDATE CART
-          </button>
+          </button> */}
         </div>
       </div>
 
