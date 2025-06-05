@@ -1,5 +1,6 @@
 package com.crudoperation.jw.controller;
 
+import com.crudoperation.jw.dto.Password;
 import com.crudoperation.jw.dto.Response;
 import com.crudoperation.jw.model.User;
 import com.crudoperation.jw.service.serviceImp.UserService;
@@ -31,17 +32,32 @@ public class UserController {
     }
 
     @PutMapping("/updateUser/{userId}")
-    public ResponseEntity<Response>update(@RequestPart User user, @RequestPart MultipartFile imageFile,@PathVariable int userId){
-        System.out.println(imageFile.getOriginalFilename());
-        System.out.println(user.getPassword());
-        return ResponseEntity.ok(userService.updateUser(user,imageFile,userId));
+    public ResponseEntity<Response> update(
+            @RequestPart User user,
+            @RequestPart(required = false) MultipartFile imageFile,
+            @PathVariable int userId) {
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            System.out.println("Uploaded file name: " + imageFile.getOriginalFilename());
+        } else {
+            System.out.println("No image file uploaded.");
+        }
+
+
+        return ResponseEntity.ok(userService.updateUser(user, imageFile, userId));
     }
+
 
 
     @PutMapping("/updateDate/{userId}/{date}")
     public ResponseEntity<Response>updateDate(@PathVariable int userId,@PathVariable LocalDate date){
         System.out.println(date);
         return ResponseEntity.ok(userService.addDate(userId,date));
+    }
+
+    @PutMapping("/changePassword/{userId}")
+    public ResponseEntity<Response>changePassword(@PathVariable int userId,@RequestBody Password password){
+         return ResponseEntity.ok(userService.changePassword(userId,password));
     }
 
 
