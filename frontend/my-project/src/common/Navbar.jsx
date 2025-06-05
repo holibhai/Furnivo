@@ -81,13 +81,11 @@ const Navbar = () => {
   const categoryRefs = useRef([]);
   const navbarRef = useRef(null);
 
-  // Check authentication status
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsAuthenticated(!!token);
   }, []);
 
-  // Fetch user details
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -104,7 +102,6 @@ const Navbar = () => {
     if (isAuthenticated) fetchUser();
   }, [isAuthenticated]);
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -114,7 +111,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch categories and subcategories
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -145,14 +141,12 @@ const Navbar = () => {
     fetchData();
   }, []);
 
-  // Fetch cart and favorite counts
   useEffect(() => {
     const fetchCartItems = async () => {
       const userId = localStorage.getItem("userId");
       if (!userId) return;
-      
+
       try {
-        // Fetch cart items
         const cartResponse = await axios.get(
           `http://localhost:8080/api/cartItem/get/${userId}`,
           {
@@ -164,7 +158,6 @@ const Navbar = () => {
         setCartCount(cartResponse.data.cartItemDtoList.length);
         setCartItemCount(cartResponse.data.cartItemDtoList.length);
 
-        // Fetch favorites
         const favResponse = await axios.get(
           `http://localhost:8080/api/favaurite/get/${userId}`,
           {
@@ -236,12 +229,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-col relative" ref={navbarRef}>
-      <ToastContainer position="top-right" autoClose={3000} />
+    <div className="flex flex-col relative " ref={navbarRef}>
+       <ToastContainer position="top-right" autoClose={3000} />
 
-      {/* Top Bar */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2 ${
           isScrolled ? "transform -translate-y-full" : "translate-y-0"
         } ${isHomePage ? "backdrop-blur-sm" : "bg-white"}`}
       >
@@ -256,9 +248,17 @@ const Navbar = () => {
             aria-label="Toggle menu"
           >
             {openBar ? (
-              <HiX className={`h-6 w-6 ${isHomePage ? "text-white" : "text-gray-800"}`} />
+              <HiX
+                className={`h-6 w-6 ${
+                  isHomePage ? "text-white" : "text-gray-800"
+                }`}
+              />
             ) : (
-              <HiMenu className={`h-6 w-6 ${isHomePage ? "text-white" : "text-gray-800"}`} />
+              <HiMenu
+                className={`h-6 w-6 ${
+                  isHomePage ? "text-white" : "text-gray-800"
+                }`}
+              />
             )}
           </button>
 
@@ -305,11 +305,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Desktop Category Bar */}
       <div
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 hidden md:block ${
           isScrolled ? "top-0" : "top-20"
-        } ${isHomePage && !isScrolled ? "" : "bg-white border-b border-gray-200"}`}
+        } ${
+          isHomePage && !isScrolled ? "" : "bg-white border-b border-gray-200"
+        }`}
       >
         <div className="relative">
           <nav className={`p-4 ${isHomePage && !isScrolled ? "" : "bg-white"}`}>
@@ -333,7 +334,9 @@ const Navbar = () => {
                   >
                     <button
                       className={`px-4 py-2 uppercase text-sm font-medium rounded-lg hover:text-orange-400 transition-colors ${
-                        isHomePage && !isScrolled ? "text-white" : "text-gray-800"
+                        isHomePage && !isScrolled
+                          ? "text-white"
+                          : "text-gray-800"
                       }`}
                       onClick={() => handleMainPage(category.name)}
                     >
@@ -343,7 +346,11 @@ const Navbar = () => {
                         <ChevronDown
                           className={`w-[15px] transition-transform ${
                             hoveredCategory === index ? "rotate-180" : ""
-                          } ${isHomePage && !isScrolled ? "text-white" : "text-gray-800"}`}
+                          } ${
+                            isHomePage && !isScrolled
+                              ? "text-white"
+                              : "text-gray-800"
+                          }`}
                         />
                       </div>
                     </button>
@@ -370,7 +377,10 @@ const Navbar = () => {
               </div>
 
               <div className="flex items-center space-x-6">
-                <div className="relative cursor-pointer" onClick={handleFavaurite}>
+                <div
+                  className="relative cursor-pointer"
+                  onClick={handleFavaurite}
+                >
                   <FaHeart
                     className={`text-xl ${
                       isHomePage && !isScrolled
@@ -406,7 +416,6 @@ const Navbar = () => {
             </div>
           </nav>
 
-          {/* Mega Dropdown */}
           {hoveredCategory !== null && (
             <div
               className={`absolute top-full left-0 w-full shadow-lg transition-all duration-300 ${
@@ -438,27 +447,31 @@ const Navbar = () => {
                       {categories[hoveredCategory].description}
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                      {categories[hoveredCategory].subcategories.map((sub, i) => (
-                        <div
-                          key={i}
-                          className="group"
-                          onClick={() => handleProductType(sub)}
-                        >
-                          <div className="px-4 py-3 bg-white bg-opacity-0 group-hover:bg-opacity-10 rounded-lg transition-all cursor-pointer">
-                            <h3 className="text-white font-bold uppercase group-hover:text-orange-400">
-                              {sub}
-                            </h3>
-                            <p className="text-gray-300 text-sm mt-1">
-                              Shop the best {sub} collection
-                            </p>
+                      {categories[hoveredCategory].subcategories.map(
+                        (sub, i) => (
+                          <div
+                            key={i}
+                            className="group"
+                            onClick={() => handleProductType(sub)}
+                          >
+                            <div className="px-4 py-3 bg-white bg-opacity-0 group-hover:bg-opacity-10 rounded-lg transition-all cursor-pointer">
+                              <h3 className="text-white font-bold uppercase group-hover:text-orange-400">
+                                {sub}
+                              </h3>
+                              <p className="text-gray-300 text-sm mt-1">
+                                Shop the best {sub} collection
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      )}
                     </div>
                   </div>
                   <div className="w-1/3 flex items-center justify-center">
                     <button
-                      onClick={() => handleMainPage(categories[hoveredCategory].name)}
+                      onClick={() =>
+                        handleMainPage(categories[hoveredCategory].name)
+                      }
                       className="bg-white text-gray-800 px-8 py-3 rounded-md font-semibold hover:bg-gray-100 transition shadow-lg hover:shadow-xl hover:-translate-y-1"
                     >
                       View All {categories[hoveredCategory].name}
@@ -471,7 +484,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Sidebar Menu */}
       <div
         className={`fixed top-0 left-0 h-full w-3/4 bg-white text-gray-800 transition-transform duration-300 z-50 shadow-lg overflow-y-auto ${
           openBar ? "translate-x-0" : "-translate-x-full"
@@ -485,7 +497,6 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Search */}
           <div className="relative mb-6">
             <input
               type="text"
@@ -496,10 +507,12 @@ const Navbar = () => {
             <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
           </div>
 
-          {/* Mobile User Actions */}
           <div className="flex justify-around mb-6 border-b pb-4">
             <div className="flex flex-col items-center">
-              <div className="relative cursor-pointer" onClick={handleFavaurite}>
+              <div
+                className="relative cursor-pointer"
+                onClick={handleFavaurite}
+              >
                 <FaHeart className="text-xl text-gray-800" />
                 <div className="absolute -top-1 -right-2 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-xs text-white">
                   {favCount || 0}
@@ -525,7 +538,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Categories */}
           <div className="mb-4">
             <h3 className="font-bold text-lg mb-2">Categories</h3>
             <div className="space-y-2">
@@ -546,7 +558,6 @@ const Navbar = () => {
                     />
                   </button>
 
-                  {/* Mobile Subcategories */}
                   {mobileOpenCategory === index && (
                     <div className="pl-6 py-2 space-y-2">
                       <button
@@ -571,7 +582,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Auth Button */}
           <div className="mt-6">
             {isAuthenticated ? (
               <button
@@ -591,7 +601,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       {openBar && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
@@ -599,7 +608,6 @@ const Navbar = () => {
         ></div>
       )}
 
-      {/* Spacer */}
       <div className={`h-${isScrolled ? "16" : "36"} invisible`}></div>
     </div>
   );
