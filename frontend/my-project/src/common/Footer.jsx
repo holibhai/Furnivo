@@ -36,12 +36,9 @@ const Footer = () => {
 
   return (
     <footer className="w-full bg-gray-800 flex flex-col mt-12">
-      {/* Main Footer Content */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-4">
-        {/* Left Content (2/4 width) */}
         <div className="lg:col-span-2 p-12 xl:p-20 ">
           <div className="max-w-7xl mx-auto h-full flex flex-col">
-            {/* Brand Section */}
             <div className="mb-16">
               <div className="flex items-center gap-3">
                 <h1 className="text-4xl md:text-5xl font-bold text-white">
@@ -54,7 +51,6 @@ const Footer = () => {
               </p>
             </div>
 
-            {/* Links Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mt-auto">
               {Object.entries(footerLinks).map(([category, links]) => (
                 <div key={category}>
@@ -82,7 +78,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Right Image Section (2/4 width) */}
         <div className="lg:col-span-2 relative">
           <div 
             className="h-full w-full bg-cover bg-center sticky top-0"
@@ -133,7 +128,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright */}
       <div className="bg-gray-900 text-gray-400 py-8 px-12 xl:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
