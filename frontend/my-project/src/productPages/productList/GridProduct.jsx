@@ -323,7 +323,7 @@ const GridProduct = ({ categoryName }) => {
   return (
     <div className="w-full">
             <ToastContainer position="top-right" autoClose={3000} />
-             <div className="container mx-auto  py-3 text-sm text-gray-600">
+             <div className="md:container md:mx-auto  py-3 text-sm text-gray-600">
                           <Link to="/" className="hover:text-blue-600">Home</Link>
                           <span className="mx-2">/</span>
                           <Link to="/products" className="hover:text-blue-600">Products</Link>
