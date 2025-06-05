@@ -200,7 +200,7 @@ const AdminProfile = () => {
       const userId = localStorage.getItem('userId');
       
       const response = await axios.put(
-        `http://localhost:8080/api/user/change-password/${userId}`,
+        `http://localhost:8080/api/user/changePassword/${userId}`,
         {
           currentPassword: formData.currentPassword,
           newPassword: formData.newPassword
