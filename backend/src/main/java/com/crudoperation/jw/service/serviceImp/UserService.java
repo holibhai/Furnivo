@@ -1,6 +1,7 @@
 package com.crudoperation.jw.service.serviceImp;
 
 import com.crudoperation.jw.dto.LoginRequest;
+import com.crudoperation.jw.dto.Password;
 import com.crudoperation.jw.dto.Response;
 import com.crudoperation.jw.dto.UserAccountDto;
 import com.crudoperation.jw.exception.OurException;
@@ -43,6 +44,8 @@ public class UserService implements UserServiceImp {
 //    private AddressRepository addressRepository;
     @Autowired
     private BillingRepository billingRepository;
+
+
 
 
 
@@ -160,11 +163,11 @@ public class UserService implements UserServiceImp {
         return response;
     }
 
-    public Response updateUser(User user, MultipartFile imageFile, int userId) {
+    public Response updateUser(User user,MultipartFile imageFile, int userId) {
         Response response=new Response();
         try{
             User userEntity = userRepository.findById(userId).orElseThrow(() -> new OurException("user Not found"));
-            if(imageFile != null){
+            if(imageFile != null && !imageFile.isEmpty()){
                 userEntity.setImageData(imageFile.getBytes());
                 userEntity.setImageName(imageFile.getOriginalFilename());
                 userEntity.setImageType(imageFile.getContentType());
@@ -210,6 +213,22 @@ public class UserService implements UserServiceImp {
     }
 
 
+    public Response changePassword(int userId, Password password) {
+        Response response=new Response();
+        try{
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isPresent()) {
+                  user.get().setPassword(passwordEncoder.encode(password.getNewPassword()));
+                  userRepository.save(user.get());
+                  response.setStatusCode(200);
+                  response.setMessage("Password changed successfully");
 
+            }
 
+        }catch (OurException e){
+            response.setStatusCode(404);
+            response.setMessage(e.getMessage());
+        }
+        return response;
+    }
 }
