@@ -26,10 +26,8 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Furniture images for the carousel
   const furnitureImages = [furnitureImage1, furnitureImage2, furnitureImage3];
 
-  // Rotate images every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % furnitureImages.length);
@@ -43,7 +41,6 @@ const Register = () => {
       ...formData,
       [name]: value,
     });
-    // Clear error when user types
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -138,7 +135,6 @@ const Register = () => {
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="flex flex-col lg:flex-row bg-white shadow-2xl  overflow-hidden w-full max-w-[1800px]">
-        {/* Image Carousel Side - 2/3 width */}
         <div className="hidden lg:block lg:w-2/3 relative h-[740px] overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
           <div className="h-full w-full flex">
@@ -179,7 +175,6 @@ const Register = () => {
           </div>
         </div>
 
-        {/* Form Side - 1/3 width */}
         <div className="w-full lg:w-1/3 p-8 md:p-12 flex flex-col justify-center">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
@@ -190,22 +185,7 @@ const Register = () => {
             </p>
           </div>
 
-          {/* {errors.form && (
-            <div className="mb-6 p-3 bg-red-50 text-red-700 rounded-lg flex items-start">
-              <X className="flex-shrink-0 h-5 w-5 mt-0.5 mr-2" />
-              <div>{errors.form}</div>
-            </div>
-          )}
-
-          {success && (
-            <div className="mb-6 p-3 bg-green-50 text-green-700 rounded-lg flex items-start">
-              <Check className="flex-shrink-0 h-5 w-5 mt-0.5 mr-2" />
-              <div>
-                <p className="font-medium">Registration successful!</p>
-                <p className="text-sm">Redirecting you to login page...</p>
-              </div>
-            </div>
-          )} */}
+          
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
