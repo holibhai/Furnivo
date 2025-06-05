@@ -361,61 +361,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      {/* <section className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold">Featured Products</h2>
-            <button className="text-blue-600 font-semibold hover:underline">
-              View All Products
-            </button>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition"
-              >
-                <div className="relative">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-64 object-cover"
-                  />
-                  {product.oldPrice && (
-                    <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
-                      Sale
-                    </div>
-                  )}
-                </div>
-                <div className="p-4">
-                  <div className="flex mb-2">
-                    {renderStars(product.rating)}
-                    <span className="text-gray-500 text-sm ml-2">
-                      ({product.rating})
-                    </span>
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
-                  <div className="flex items-center">
-                    <span className="text-xl font-bold">
-                      ${product.price.toFixed(2)}
-                    </span>
-                    {product.oldPrice && (
-                      <span className="ml-2 text-gray-500 line-through">
-                        ${product.oldPrice.toFixed(2)}
-                      </span>
-                    )}
-                  </div>
-                  <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-md flex items-center justify-center hover:bg-blue-700 transition">
-                    <FiShoppingCart className="mr-2" />
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+      
 
       <section>
         <div className="mx-36">
@@ -517,74 +463,99 @@ const Home = () => {
         </div>
       </section>
 
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-  <div className="max-w-7xl mx-auto">
-    <div className="text-center">
-      <h1 className="text-red-600 uppercase font-semibold tracking-wider">Latest news</h1>
-      <h1 className="text-3xl md:text-5xl font-medium py-5">Latest news & updates</h1>
+   <section className="py-24 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <span className="inline-block text-red-600 text-sm font-semibold tracking-widest uppercase mb-3">Latest News</span>
+      <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">Stay Updated With Our News</h2>
+      <div className="mx-auto mt-4 h-1 w-20 bg-red-600"></div>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-      {/* News Item 1 - Seasonal Furniture Care */}
-      <div className="bg-white  overflow-hidden rounded-2xl transition-shadow duration-300">
-        <img  
-          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZSUyMGNhcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" 
-          alt="Person cleaning wooden furniture"
-          className="w-full h-[400px] object-cover rounded-2xl"
-        />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {/* News Item 1 */}
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+        <div className="relative overflow-hidden h-64">
+          <img  
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGZ1cm5pdHVyZSUyMGNhcmV8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" 
+            alt="Furniture care"
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div className="absolute top-4 left-4">
+            <span className="bg-red-600 text-white text-xs font-medium px-3 py-1 rounded-full">FLOORING</span>
+          </div>
+        </div>
         <div className="p-6">
-          <div className="flex items-center text-sm text-gray-500 mb-2">
-            <span className="bg-gray-100 px-3 py-1 rounded-full text-red-600 font-medium">FLOORING</span>
-            <span className="mx-2">•</span>
+          <div className="flex items-center text-xs text-gray-500 mb-3 space-x-2">
             <span>Feb 07, 2025</span>
-            <span className="mx-2">•</span>
+            <span>•</span>
             <span>By Admin</span>
           </div>
-          <h3 className="text-xl font-semibold mb-3">Seasonal furniture care tips: protecting your pieces year-round</h3>
-          <p className="text-gray-600 mb-4">Turning a house into a home is not an easy task it requires time, attention, and the right home furniture...</p>
-          <a href="#" className="text-red-600 font-medium hover:text-red-700 transition-colors">Read More →</a>
+          <h3 className="text-xl font-bold text-gray-900 mb-3 leading-snug">Seasonal Furniture Care: Protecting Your Pieces Year-Round</h3>
+          <p className="text-gray-600 mb-4 line-clamp-2">Turning a house into a home is not an easy task it requires time, attention, and the right home furniture...</p>
+          <a href="#" className="inline-flex items-center text-red-600 font-medium hover:text-red-700 transition-colors">
+            Read More
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
         </div>
       </div>
 
-      {/* News Item 2 - Home Office */}
-      <div className="bg-white rounded-lg overflow-hidden  transition-shadow duration-300">
-        <img 
-          src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aG9tZSUyMG9mZmljZSUyMGZ1cm5pdHVyZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60" 
-          alt="Cozy home office with wooden furniture"
-          className="w-full h-[400px] object-cover rounded-2xl"
-        />
+      {/* News Item 2 */}
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+        <div className="relative overflow-hidden h-64">
+          <img 
+            src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aG9tZSUyMG9mZmljZSUyMGZ1cm5pdHVyZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60" 
+            alt="Home office"
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div className="absolute top-4 left-4">
+            <span className="bg-red-600 text-white text-xs font-medium px-3 py-1 rounded-full">EXTERIORS</span>
+          </div>
+        </div>
         <div className="p-6">
-          <div className="flex items-center text-sm text-gray-500 mb-2">
-            <span className="bg-gray-100 px-3 py-1 rounded-full text-red-600 font-medium">EXTERIORS</span>
-            <span className="mx-2">•</span>
+          <div className="flex items-center text-xs text-gray-500 mb-3 space-x-2">
             <span>Feb 06, 2025</span>
-            <span className="mx-2">•</span>
+            <span>•</span>
             <span>By Admin</span>
           </div>
-          <h3 className="text-xl font-semibold mb-3">How to create a cozy and stylish home office</h3>
-          <p className="text-gray-600 mb-4">Safe is the heart of your living space, offering a cozy spot for relaxation and entertainment after a long day...</p>
-          <a href="#" className="text-red-600 font-medium hover:text-red-700 transition-colors">Read More →</a>
+          <h3 className="text-xl font-bold text-gray-900 mb-3 leading-snug">Creating a Cozy and Stylish Home Office</h3>
+          <p className="text-gray-600 mb-4 line-clamp-2">Safe is the heart of your living space, offering a cozy spot for relaxation and entertainment after a long day...</p>
+          <a href="#" className="inline-flex items-center text-red-600 font-medium hover:text-red-700 transition-colors">
+            Read More
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
         </div>
       </div>
 
-      {/* News Item 3 - Furniture Shopping */}
-      <div className="bg-white rounded-lg overflow-hidden  transition-shadow duration-300">
-        <img 
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZnVybml0dXJlJTIwc2hvcHBpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" 
-          alt="Modern furniture showroom"
-          className="w-full h-[400px] object-cover rounded-2xl"
-        />
+      {/* News Item 3 */}
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+        <div className="relative overflow-hidden h-64">
+          <img 
+            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZnVybml0dXJlJTIwc2hvcHBpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" 
+            alt="Furniture shopping"
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div className="absolute top-4 left-4">
+            <span className="bg-red-600 text-white text-xs font-medium px-3 py-1 rounded-full">DECORATION</span>
+          </div>
+        </div>
         <div className="p-6">
-          <div className="flex items-center text-sm text-gray-500 mb-2">
-            <span className="bg-gray-100 px-3 py-1 rounded-full text-red-600 font-medium">DECORATION</span>
-            <span className="mx-2">•</span>
+          <div className="flex items-center text-xs text-gray-500 mb-3 space-x-2">
             <span>Feb 06, 2025</span>
-            <span className="mx-2">•</span>
+            <span>•</span>
             <span>By Admin</span>
           </div>
-          <h3 className="text-xl font-semibold mb-3">Furniture shopping IOL: what to look for in quality pieces</h3>
-          <p className="text-gray-600 mb-4">There's so much more to these shelves than meets the eye. What begins as a set of three simple shelves...</p>
-          <a href="#" className="text-red-600 font-medium hover:text-red-700 transition-colors">Read More →</a>
+          <h3 className="text-xl font-bold text-gray-900 mb-3 leading-snug">Furniture Shopping Guide: Quality Pieces Essentials</h3>
+          <p className="text-gray-600 mb-4 line-clamp-2">There's so much more to these shelves than meets the eye. What begins as a set of three simple shelves...</p>
+          <a href="#" className="inline-flex items-center text-red-600 font-medium hover:text-red-700 transition-colors">
+            Read More
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
         </div>
       </div>
     </div>
