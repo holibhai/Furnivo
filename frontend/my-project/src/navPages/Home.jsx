@@ -34,7 +34,6 @@ import sofa from "../assets/sofa_1483774.png";
 import dine from "../assets/photo-1610809026329-2b7b713a986c.avif";
 
 const Home = () => {
-  // Hero slider data
   const slides = [
     {
       id: 1,
@@ -87,7 +86,6 @@ const Home = () => {
     },
   ];
 
-  // Categories data
   const categories = [
     { id: 1, name: "Living Room", icon: <MdLiving size={40} />, count: 125 },
     { id: 2, name: "Bedroom", icon: <MdKingBed size={40} />, count: 89 },
@@ -97,28 +95,24 @@ const Home = () => {
     { id: 6, name: "Chairs", icon: <MdChair size={40} />, count: 78 },
   ];
 
-  // Business images for auto-cycling
   const businessImages = [
     { src: bussines, alt: "Businessman making OK sign" },
     { src: bussines2, alt: "Businessman doing victory gesture" },
     { src: bussines3, alt: "Businessman sitting in armchair" },
   ];
 
-  // State for business image cycling
   const [currentBusinessImage, setCurrentBusinessImage] = useState(0);
 
-  // Auto-cycle business images
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBusinessImage((prev) =>
         prev === businessImages.length - 1 ? 0 : prev + 1
       );
-    }, 3000); // Change every 3 seconds
+    }, 3000);
     
     return () => clearInterval(interval);
   }, [businessImages.length]);
      
-  // Testimonials data  
   const testimonials = [
     {
       id: 1,
@@ -146,7 +140,6 @@ const Home = () => {
     },
   ];
   
-  // Featured products data
   const featuredProducts = [
     {
       id: 1,
@@ -186,11 +179,9 @@ const Home = () => {
     },
   ];
 
-  // State for slider
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Auto play slider
   useEffect(() => {
     let interval;
     if (isAutoPlaying) {
@@ -219,7 +210,6 @@ const Home = () => {
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
-  // Render star rating
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -235,7 +225,6 @@ const Home = () => {
 
   return (
     <div className="font-sans">
-      {/* Hero Slider */}
       <div className="relative h-[700px] w-full overflow-hidden">
         {slides.map((slide, index) => (
           <div
@@ -263,7 +252,6 @@ const Home = () => {
           </div>
         ))}
 
-        {/* Slider Controls */}
         <button
           onClick={prevSlide}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 text-gray-800 p-2 rounded-full z-20 hover:bg-opacity-100 transition"
@@ -277,7 +265,6 @@ const Home = () => {
           <FaChevronRight size={24} />
         </button>
 
-        {/* Slider Indicators */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
           {slides.map((_, index) => (
             <button
@@ -291,7 +278,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Categories Section */}
       <section className="py-28 z-50 px-6 md:px-36">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex flex-col gap-6">
@@ -342,7 +328,6 @@ const Home = () => {
                 }`}
               />
             ))}
-            {/* Dots indicator */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
               {businessImages.map((_, index) => (
                 <button
@@ -472,7 +457,6 @@ const Home = () => {
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      {/* News Item 1 */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
         <div className="relative overflow-hidden h-64">
           <img  
@@ -501,7 +485,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* News Item 2 */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
         <div className="relative overflow-hidden h-64">
           <img 
@@ -530,7 +513,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* News Item 3 */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
         <div className="relative overflow-hidden h-64">
           <img 
@@ -562,7 +544,6 @@ const Home = () => {
   </div>
 </section>
 
-      {/* Testimonials */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">
