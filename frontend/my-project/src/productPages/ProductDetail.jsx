@@ -350,7 +350,7 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Image Gallery */}
           <div className="md:sticky top-24 self-start">
-            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-4 md:h-[300px]">
+            <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-4 md:h-[700px]">
               <img
                 src={`data:${product.imageType};base64,${product.imageData}`}
                 alt={product.productName}
