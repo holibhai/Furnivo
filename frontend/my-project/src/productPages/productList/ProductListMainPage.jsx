@@ -31,8 +31,8 @@ const ProductListMainPage = ({search,setSearch}) => {
       
       <div className="flex md:gap-5 ">
         <div className="flex flex-col  md:w-1/6 md:gap-4  md:p-3 relative  ">
-          <div className="absolute top-0 left-0 w-[200px]">
-            <h1 className=" font-semibold text-lg">PRICE RANGE</h1>
+          <div className="absolute  md:relative top-0 left-0 w-[200px] md:w-full">
+            <h1 className="font-semibold text-lg">PRICE RANGE</h1>
             <div  >
               <PriiceRange />
             </div>
