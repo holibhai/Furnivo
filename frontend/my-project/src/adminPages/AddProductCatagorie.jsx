@@ -24,7 +24,6 @@ const AddProductCatagorie = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple validation
     if (!formData.catagorieId || !formData.catagorieType || !formData.catagorieDescription) {
       setError('Please fill in all fields');
       setSuccess('');
@@ -38,7 +37,7 @@ const AddProductCatagorie = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`, // If you use token
+            Authorization: `Bearer ${localStorage.getItem('token')}`, 
           },
         }
       );

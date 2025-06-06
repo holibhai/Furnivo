@@ -17,7 +17,6 @@ const Admin = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
 
-  // Form state for adding new admin
   const [newAdmin, setNewAdmin] = useState({
     username: '',
     password: '',
@@ -26,7 +25,6 @@ const Admin = () => {
     role: 'ADMIN'
   });
 
-  // Function to generate random profile pictures based on name
   const getProfilePicture = (firstName, lastName) => {
     const name = `${firstName}+${lastName}`;
     return `https://ui-avatars.com/api/?name=${name}&background=random&size=128&rounded=true&color=fff`;

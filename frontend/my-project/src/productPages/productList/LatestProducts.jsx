@@ -5,13 +5,11 @@ import chair3 from "../../assets/stylish-orange-black-wingback-armchair-modern-f
 import chair4 from "../../assets/luxurious-teal-velvet-round-sofa-with-pillows-comfort-style_632498-57345.jpg"
 import chair5 from "../../assets/modern-colorful-armchairs-trio-stylish-seating_191095-87776.jpg"
 
-// Sample Product List
 const latestProducts = [
   { id: 1, name: "Armado Chair", image: chair5 },
   { id: 2, name: "Elegant Orange Chair", image: chair2 },
-  { id: 3, name: "Modern Gray Chair", image: chair3 }, // Reusing the same image
+  { id: 3, name: "Modern Gray Chair", image: chair3 }, 
   { id: 4, name: "Luxury Black Chair", image: chair4 }, 
-  // Reusing the same image
 ];
 
 const LatestProducts = () => {

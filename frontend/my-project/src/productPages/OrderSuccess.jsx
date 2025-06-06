@@ -44,7 +44,6 @@ const OrderSuccess = () => {
     const id = searchParams.get("session_id");
     if (id) {
       setSessionId(id);
-      // Verify payment with backend here if needed
     }
 
     deleteCartItems();

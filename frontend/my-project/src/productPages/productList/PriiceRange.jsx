@@ -9,7 +9,6 @@ const PriceRange = ({ onPriceChange }) => {
   const [maxLimit, setMaxLimit] = useState(1000);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ✅ FIX: Use useAppContext() only once
   const { minValue, setMinValue, maxValue, setMaxValue } = useAppContext();
 
   useEffect(() => {
@@ -20,13 +19,11 @@ const PriceRange = ({ onPriceChange }) => {
           axios.get(`http://localhost:8080/api/product/minProduct`, {
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
           axios.get(`http://localhost:8080/api/product/maxProduct`, {
             headers: {
               "Content-Type": "application/json",
-              // Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
         ]);
@@ -88,13 +85,10 @@ const PriceRange = ({ onPriceChange }) => {
 
   return (
     <div className="w-full max-w-lg mx-auto my-5 p-6 py-12 bg-white rounded-lg shadow-sm border border-gray-100">
-      {/* <h3 className="text-lg font-medium text-gray-800 py-12">Price Range</h3> */}
 
       <div className="relative mb-8">
-        {/* Track background */}
         <div className="absolute top-1/2 left-0 w-full h-2 bg-gray-200 rounded-full transform -translate-y-1/2"></div>
 
-        {/* Active range */}
         <div
           className="absolute top-1/2 h-2 bg-blue-100 rounded-full transform -translate-y-1/2"
           style={{
@@ -103,7 +97,6 @@ const PriceRange = ({ onPriceChange }) => {
           }}
         ></div>
 
-        {/* Min thumb */}
         <div
           className="absolute top-1/2 w-5 h-5 bg-white border-2 border-blue-500 rounded-full shadow-md transform -translate-y-1/2 -translate-x-1/2 cursor-pointer"
           style={{
@@ -116,7 +109,6 @@ const PriceRange = ({ onPriceChange }) => {
           </div>
         </div>
 
-        {/* Max thumb */}
         <div
           className="absolute top-1/2 w-5 h-5 bg-white border-2 border-blue-500 rounded-full shadow-md transform -translate-y-1/2 -translate-x-1/2 cursor-pointer"
           style={{
@@ -129,7 +121,6 @@ const PriceRange = ({ onPriceChange }) => {
           </div>
         </div>
 
-        {/* Hidden range inputs */}
         <input
           type="range"
           min={minLimit}

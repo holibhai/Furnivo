@@ -48,7 +48,6 @@ const Reports = () => {
       try {
         setLoading(true);
         
-        // Fetch orders
         const ordersResponse = await axios.get("http://localhost:8080/api/order/get", {
           headers: {
             "Content-Type": "application/json",
@@ -56,7 +55,6 @@ const Reports = () => {
           },
         });
 
-        // Fetch users
         const usersResponse = await axios.get("http://localhost:8080/api/user/getUsers", {
           headers: {
             "Content-Type": "application/json",
@@ -85,7 +83,6 @@ const Reports = () => {
     let filteredOrdersData = orders;
     let filteredUsersData = users;
 
-    // Apply date filter
     if (startDate && endDate) {
       filteredOrdersData = filteredOrdersData.filter(order => {
         const orderDate = new Date(order.orderDate);
@@ -98,7 +95,6 @@ const Reports = () => {
       });
     }
 
-    // Apply status filter (only for orders)
     if (statusFilter !== "ALL" && activeTab === "revenue") {
       filteredOrdersData = filteredOrdersData.filter(order => order.orderStatus === statusFilter);
     }
@@ -107,7 +103,6 @@ const Reports = () => {
     setFilteredUsers(filteredUsersData);
   }, [orders, users, startDate, endDate, statusFilter, activeTab]);
 
-  // Prepare data for revenue charts
   const getRevenueByMonth = () => {
     const months = [
       "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -177,7 +172,6 @@ const Reports = () => {
     })).sort((a, b) => new Date(a.date) - new Date(b.date));
   };
 
-  // Prepare data for customer charts
   const getCustomerSignupsByMonth = () => {
     const months = [
       "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -240,7 +234,6 @@ const Reports = () => {
     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
   };
 
-  // Summary statistics
   const totalRevenue = filteredOrders.reduce((sum, order) => sum + parseFloat(order.netTotal || 0), 0);
   const totalOrders = filteredOrders.length;
   const avgOrderValue = totalOrders > 0 ? (totalRevenue / totalOrders).toFixed(2) : 0;
@@ -336,7 +329,6 @@ const Reports = () => {
         </button>
       </div>
 
-      {/* Filters */}
       <div className="bg-white rounded-lg shadow p-4 mb-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
@@ -381,7 +373,6 @@ const Reports = () => {
         </div>
       </div>
 
-      {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         {activeTab === "revenue" ? (
           <>
@@ -493,9 +484,7 @@ const Reports = () => {
 
       {activeTab === "revenue" ? (
         <>
-          {/* Revenue Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            {/* Monthly Revenue */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Monthly Revenue</h3>
               <div className="h-64">
@@ -512,7 +501,6 @@ const Reports = () => {
               </div>
             </div>
 
-            {/* Revenue by Status */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Revenue by Status</h3>
               <div className="h-64">
@@ -542,7 +530,6 @@ const Reports = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            {/* Daily Revenue Trend */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Daily Revenue Trend</h3>
               <div className="h-64">
@@ -559,7 +546,6 @@ const Reports = () => {
               </div>
             </div>
 
-            {/* Top Products by Revenue */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Top Products by Revenue</h3>
               <div className="h-64">
@@ -581,7 +567,6 @@ const Reports = () => {
             </div>
           </div>
 
-          {/* Recent Orders Table */}
           <div className="bg-white rounded-lg shadow p-4">
             <h3 className="font-medium text-gray-700 mb-4">Recent Orders</h3>
             <div className="overflow-x-auto">
@@ -621,9 +606,7 @@ const Reports = () => {
         </>
       ) : (
         <>
-          {/* Customer Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            {/* Monthly Customer Signups */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Monthly Customer Signups</h3>
               <div className="h-64">
@@ -640,7 +623,6 @@ const Reports = () => {
               </div>
             </div>
 
-            {/* Weekly Customer Signups */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Weekly Customer Signups</h3>
               <div className="h-64">
@@ -659,7 +641,6 @@ const Reports = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            {/* Daily Signup Trend */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Daily Signup Trend</h3>
               <div className="h-64">
@@ -676,7 +657,6 @@ const Reports = () => {
               </div>
             </div>
 
-            {/* Customer Role Distribution */}
             <div className="bg-white rounded-lg shadow p-4">
               <h3 className="font-medium text-gray-700 mb-4">Customer Role Distribution</h3>
               <div className="h-64">
@@ -707,7 +687,6 @@ const Reports = () => {
             </div>
           </div>
 
-          {/* Recent Customers Table */}
           <div className="bg-white rounded-lg shadow p-4">
             <h3 className="font-medium text-gray-700 mb-4">Recent Customers</h3>
             <div className="overflow-x-auto">

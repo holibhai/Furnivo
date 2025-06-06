@@ -23,7 +23,6 @@ const UserReview = () => {
   const [loadingReviews, setLoadingReviews] = useState({});
   const userId = localStorage.getItem("userId");
 
-  // Fetch user's orders with delivered products that haven't been reviewed yet
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -45,7 +44,6 @@ const UserReview = () => {
           for (const order of orders) {
             if (order.orderStatus === "DELIVERED") {
               for (const item of order.orderItems) {
-                // Check if user already reviewed this product
                 try {
                   const reviewRes = await axios.get(
                     `http://localhost:8080/api/review/user/${userId}/product/${item.productId}`,
@@ -56,12 +54,10 @@ const UserReview = () => {
                     }
                   );
                   
-                  // If review exists, skip this product
                   if (reviewRes.data) {
                     continue;
                   }
                 } catch (error) {
-                  // Review doesn't exist yet, proceed to add this product
                 }
 
                 const productRes = await axios.get(
@@ -99,7 +95,6 @@ const UserReview = () => {
     fetchOrders();
   }, [userId]);
 
-  // Fetch product reviews when expanded
   const fetchProductReviews = async (productId) => {
     try {
       setLoadingReviews(prev => ({ ...prev, [productId]: true }));
@@ -127,7 +122,6 @@ const UserReview = () => {
       [productId]: !prev[productId]
     }));
 
-    // Fetch reviews if not already loaded
     if (!productReviews[productId] && !expandedReviews[productId]) {
       fetchProductReviews(productId);
     }
@@ -179,7 +173,6 @@ const UserReview = () => {
         }
       );
       
-      // Remove the reviewed product from the list
       setOrderItems(prev => prev.filter(item => item.productId !== productId));
 
       toast.success("Review submitted successfully!");
@@ -192,7 +185,6 @@ const UserReview = () => {
     }
   };
 
-  // Helper functions
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -265,7 +257,6 @@ const UserReview = () => {
                         </span>
                       </div>
 
-                      {/* Product Rating Summary */}
                       <div className="mt-3 flex items-center">
                         <div className="flex items-center">
                           {[1, 2, 3, 4, 5].map((star) => (
@@ -290,7 +281,6 @@ const UserReview = () => {
                         </span>
                       </div>  
 
-                      {/* Review Section */}
                       <div className="mt-4">
                         {reviewForms[item.productId] ? (
                           <div className="space-y-4">
@@ -383,10 +373,8 @@ const UserReview = () => {
                         )}
                       </div>
 
-                      {/* Expanded Reviews Section */}
                       {expandedReviews[item.productId] && (
                         <div className="mt-4 space-y-4">
-                          {/* Other Reviews */}
                           <div>
                             <h4 className="text-sm font-medium text-gray-700 mb-3 flex flex-row items-center">
                               <MessageSquare className="mr-2 h-4 w-4" />

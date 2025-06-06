@@ -24,7 +24,6 @@ const UserHeader = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        {/* Notifications */}
         <div className="relative">
           <Bell className="text-gray-600 hover:text-yellow-500 cursor-pointer" size={22} />
           <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-1.5">
@@ -32,20 +31,17 @@ const UserHeader = () => {
           </span>
         </div>
 
-        {/* Settings */}
         <Link to="/">
         <Home className="text-gray-600 hover:text-blue-500 cursor-pointer" size={22} />
 
         </Link>
 
-        {/* Profile Image */}
         <img
           src="https://i.pravatar.cc/40"
           alt="admin-profile"
           className="w-9 h-9 rounded-full border-2 border-yellow-400 object-cover shadow-md"
         />
 
-        {/* Logout Button */}
         <button className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1.5 rounded-md transition"
         onClick={handleClick}>
           <LogOut size={18} />

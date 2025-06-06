@@ -499,7 +499,6 @@ const Billing = () => {
         </button>
       </div>
 
-      {/* Bottom Banner */}
       <div className="mt-12 rounded-xl overflow-hidden">
         <img src={botImage} alt="Bottom Banner" className="w-full h-auto" />
       </div>

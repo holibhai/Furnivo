@@ -216,7 +216,6 @@ const DisplayProducts = () => {
           </div>
         </div>
 
-        {/* Category Stats Dashboard */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {categories.map((category) => (
             <div 
@@ -244,9 +243,7 @@ const DisplayProducts = () => {
           ))}
         </div>
 
-        {/* Filter section */}
         <div className="bg-white p-4 rounded-lg shadow flex flex-col md:flex-row justify-between items-center gap-4">
-          {/* Search */}
           <div className="flex items-center border border-gray-300 rounded-md px-3 py-1.5 w-full md:w-1/2">
             <Search className="text-gray-500 w-4 h-4 mr-2" />
             <input
@@ -258,7 +255,6 @@ const DisplayProducts = () => {
             />
           </div>
 
-          {/* Category Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsCategoryOpen(!isCategoryOpen)}
@@ -290,14 +286,12 @@ const DisplayProducts = () => {
           </div>
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="p-4 bg-red-50 rounded-lg flex items-start">
             <div className="text-red-800 font-semibold">{error}</div>
           </div>
         )}
 
-        {/* Loading State */}
         {isLoading && (
           <div className="flex justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
@@ -306,9 +300,7 @@ const DisplayProducts = () => {
 
          
 
-        {/* Product Display */}
         {viewMode === "grid" ? (
-          /* Grid View */
           <div className="flex flex-wrap justify-start gap-7">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product) => (
@@ -365,7 +357,6 @@ const DisplayProducts = () => {
             )}
           </div>
         ) : (
-          /* Table View */
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">

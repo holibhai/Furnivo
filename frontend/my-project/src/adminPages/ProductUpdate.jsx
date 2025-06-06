@@ -47,7 +47,6 @@ const ProductUpdate = () => {
   const [productTypes, setProductTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fetch product and categories on mount
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
@@ -59,8 +58,8 @@ const ProductUpdate = () => {
         setCategories(catRes.data.catagorieDtoList);
 
         const fetchedProduct = productRes.data;
-        setProduct({ ...fetchedProduct, image: null }); // Reset image
-        setImagePreview(fetchedProduct.imageUrl); // Load existing image
+        setProduct({ ...fetchedProduct, image: null }); 
+        setImagePreview(fetchedProduct.imageUrl); 
       } catch (err) {
         console.error("Error fetching data", err);
         toast.error("Error Fetching Data")
@@ -70,7 +69,6 @@ const ProductUpdate = () => {
     fetchInitialData();
   }, [productId]);
 
-  // Fetch product types on category change
   useEffect(() => {
     const fetchProductTypes = async () => {
       if (product.category) {
@@ -180,9 +178,7 @@ const ProductUpdate = () => {
 
         <form onSubmit={handleSubmit} className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Left Column */}
             <div className="space-y-6">
-              {/* Product Name */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Type className="h-4 w-4 mr-2 text-gray-500" />
@@ -198,7 +194,6 @@ const ProductUpdate = () => {
                 />
               </div>
 
-              {/* Description */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <AlignLeft className="h-4 w-4 mr-2 text-gray-500" />
@@ -214,7 +209,6 @@ const ProductUpdate = () => {
                 />
               </div>
 
-              {/* Category */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Package className="h-4 w-4 mr-2 text-gray-500" />
@@ -239,7 +233,6 @@ const ProductUpdate = () => {
                 </div>
               </div>
 
-              {/* Product Type */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Package className="h-4 w-4 mr-2 text-gray-500" />
@@ -265,9 +258,7 @@ const ProductUpdate = () => {
               </div>
             </div>
 
-            {/* Right Column */}
             <div className="space-y-6">
-              {/* Price */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <DollarSign className="h-4 w-4 mr-2 text-gray-500" />
@@ -291,7 +282,6 @@ const ProductUpdate = () => {
                 </div>
               </div>
 
-              {/* Discount */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Percent className="h-4 w-4 mr-2 text-gray-500" />
@@ -314,7 +304,6 @@ const ProductUpdate = () => {
                 </div>
               </div>
 
-              {/* Quantity */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Package className="h-4 w-4 mr-2 text-gray-500" />
@@ -330,7 +319,6 @@ const ProductUpdate = () => {
                 />
               </div>
 
-              {/* Dimensions */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Ruler className="h-4 w-4 mr-2 text-gray-500" />
@@ -385,7 +373,6 @@ const ProductUpdate = () => {
                 </div>
               </div>
 
-              {/* Warranty */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Shield className="h-4 w-4 mr-2 text-gray-500" />
@@ -402,7 +389,6 @@ const ProductUpdate = () => {
             </div>
           </div>
 
-          {/* Image Upload */}
           <div className="mt-6">
             <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
               <ImageIcon className="h-4 w-4 mr-2 text-gray-500" />
@@ -443,7 +429,6 @@ const ProductUpdate = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <div className="mt-8 flex justify-end">
             <button
               type="submit"

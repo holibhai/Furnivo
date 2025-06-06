@@ -25,7 +25,6 @@ const AdminSidebar = () => {
         <img src={logo} alt="" className="w-[200px] -mb-12 -mt-14" />
       </h2>
 
-      {/* Dashboard */}
       <NavLink
         to="/admin"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -33,7 +32,6 @@ const AdminSidebar = () => {
         <LayoutDashboard size={18} /> Dashboard
       </NavLink>
 
-      {/* Products */}
       <NavLink
         to="/admin/displayProducts"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -41,7 +39,6 @@ const AdminSidebar = () => {
         <PackagePlus size={18} /> Products
       </NavLink>
 
-      {/* Product Category */}
       <NavLink
         to="/admin/catagory"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -49,7 +46,6 @@ const AdminSidebar = () => {
         <List size={18} /> Product Category
       </NavLink>
 
-      {/* Orders */}
       <NavLink
         to="/admin/displayOrders"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -57,7 +53,6 @@ const AdminSidebar = () => {
         < Archive size={18} /> Orders
       </NavLink>
 
-      {/* Delivery Cost */}
       <NavLink
         to="/admin/deliverycost"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -65,7 +60,6 @@ const AdminSidebar = () => {
         <Truck size={18} /> Delivery Cost
       </NavLink>
 
-      {/* Admins */}
       <NavLink
         to="/admin/displayAdmin"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -73,7 +67,6 @@ const AdminSidebar = () => {
         <UserCog size={18} /> Admins
       </NavLink>
 
-      {/* Customers */}
       <NavLink
         to="/admin/customers"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -81,7 +74,6 @@ const AdminSidebar = () => {
         <User size={18} /> Customers
       </NavLink>
 
-      {/* Reports */}
       <NavLink
         to="/admin/reports"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -89,7 +81,6 @@ const AdminSidebar = () => {
         <ClipboardMinus size={18} /> Reports
       </NavLink>
 
-      {/* Review */}
       <NavLink
         to="/admin/reviewAdmin"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -103,7 +94,6 @@ const AdminSidebar = () => {
         <PersonStanding size={18} /> Profile
       </NavLink>
 
-      {/* Logout */}
       <NavLink
         to="/logout"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-red-500 hover:text-white transition mt-auto"

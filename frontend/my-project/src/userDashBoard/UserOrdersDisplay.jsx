@@ -10,7 +10,7 @@ const UserOrdersDisplay = () => {
   const [statusFilter, setStatusFilter] = useState("All");
 
   const allStatuses = ["All", "PENDING", "PROCESSING", "DELIVERED", "CANCELLED"];
-  const userId = localStorage.getItem("userId"); // or fetch from auth context
+  const userId = localStorage.getItem("userId"); 
 
   useEffect(() => {
     const fetchUserOrders = async () => {
@@ -66,7 +66,6 @@ const UserOrdersDisplay = () => {
           </div>
         </div>
 
-        {/* Search and Filter */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
           <input
             type="text"
@@ -89,7 +88,6 @@ const UserOrdersDisplay = () => {
           </select>
         </div>
 
-        {/* Orders Table */}
         <table className="w-full text-left border text-sm border-gray-200 rounded-xl overflow-hidden">
           <thead className="bg-gray-100">
             <tr>

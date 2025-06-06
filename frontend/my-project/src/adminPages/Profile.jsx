@@ -78,7 +78,6 @@ const AdminProfile = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user types
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -136,14 +135,12 @@ const AdminProfile = () => {
       const userId = localStorage.getItem('userId');
       const formDataToSend = new FormData();
       
-      // Append user data as JSON
       const userData = {
         firstName: formData.firstName,
         lastName: formData.lastName,
         username: formData.username,
         password:null
       };
-    //   formDataToSend.append('user', JSON.stringify(userData));
        formDataToSend.append(
       "user",
       new Blob([JSON.stringify(userData)], { type: "application/json" })
@@ -166,7 +163,6 @@ const AdminProfile = () => {
       if (response.data.statusCode === 200) {
         setUser(response.data.userAccountDto);
         setEditMode(false);
-        // Update form data with new values
         setFormData(prev => ({
           ...prev,
           firstName: response.data.userAccountDto.firstName,
@@ -260,7 +256,6 @@ const AdminProfile = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
@@ -279,10 +274,8 @@ const AdminProfile = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar */}
           <div className="w-full md:w-64 bg-white rounded-lg shadow-sm p-4">
             <div className="flex flex-col items-center mb-6">
               <div className="relative w-24 h-24 rounded-full overflow-hidden mb-3 border-4 border-blue-100">
@@ -340,7 +333,6 @@ const AdminProfile = () => {
             </nav>
           </div>
 
-          {/* Profile Content */}
           <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">

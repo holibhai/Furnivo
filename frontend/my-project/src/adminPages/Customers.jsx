@@ -23,7 +23,6 @@ const Customers = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Configure axios instance
   const api = axios.create({
     baseURL: 'http://localhost:8080/api',
     headers: {
@@ -32,13 +31,11 @@ const Customers = () => {
     }
   });
 
-  // Function to generate random profile pictures based on name
   const getProfilePicture = (firstName, lastName) => {
     const name = `${firstName}+${lastName}`;
     return `https://ui-avatars.com/api/?name=${name}&background=random&size=128&rounded=true&color=fff`;
   };
 
-  // Error handling wrapper
   const handleApiCall = async (apiCall, successMessage, errorMessage) => {
     try {
       setIsProcessing(true);
@@ -66,7 +63,6 @@ const Customers = () => {
           'Failed to fetch customer data'
         );
 
-        // Filter only USER role customers
         const customerUsers = response.data.userAccountDtoList.filter(
           user => user.role === 'USER'
         );
@@ -95,7 +91,6 @@ const Customers = () => {
       
       setCustomers(customers.filter(customer => customer.id !== id));
     } catch (err) {
-      // Error is already handled by handleApiCall
     }
   };
 
@@ -129,7 +124,6 @@ const Customers = () => {
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-800">Customer Management</h1>
@@ -137,7 +131,6 @@ const Customers = () => {
           </div>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
@@ -176,7 +169,6 @@ const Customers = () => {
           </div>
         </div>
 
-        {/* Customers Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="flex justify-between items-center p-4 border-b">
             <h2 className="text-xl font-semibold text-gray-800">Customer List</h2>
@@ -274,7 +266,6 @@ const Customers = () => {
         </div>
       </div>
 
-      {/* Customer Details Modal */}
       {showDetailsModal && selectedCustomer && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">

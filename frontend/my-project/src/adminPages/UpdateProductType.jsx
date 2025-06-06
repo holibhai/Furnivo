@@ -18,7 +18,6 @@ const UpdateProductType = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
-  // Fetch product type by ID
   useEffect(() => {
     const fetchProductType = async () => {
       try {
@@ -44,7 +43,6 @@ const UpdateProductType = () => {
     fetchProductType();
   }, [id]);
 
-  // Fetch available categories for dropdown
   useEffect(() => {
     const fetchCategories = async () => {
       try {

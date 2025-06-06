@@ -66,7 +66,6 @@ const Delivery = ({
       <h1 className="text-xl font-bold text-gray-800 mb-6">Shipping Details</h1>
 
       <div className="space-y-4">
-        {/* Name Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label htmlFor="receiverFirstName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -94,7 +93,6 @@ const Delivery = ({
           </div>
         </div>
 
-        {/* City and Phone Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
@@ -129,7 +127,6 @@ const Delivery = ({
           </div>
         </div>
 
-        {/* Address Fields */}
         <div>
           <label htmlFor="streetAddress1" className="block text-sm font-medium text-gray-700 mb-1">
             Street Address
@@ -158,7 +155,6 @@ const Delivery = ({
           />
         </div>
 
-        {/* Order Notes */}
         <div>
           <label htmlFor="deliveryOrderNotes" className="block text-sm font-medium text-gray-700 mb-1">
             Order Notes (Optional)
@@ -172,7 +168,6 @@ const Delivery = ({
           />
         </div>
 
-        {/* Shipping Cost Section */}
         <div className="pt-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Shipping Cost

@@ -15,7 +15,6 @@ const CatagoryUpdate = () => {
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
 
-  // Fetch existing category data
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -103,7 +102,7 @@ const CatagoryUpdate = () => {
             onChange={handleChange}
             className="w-full border border-gray-300 px-4 py-2 rounded bg-gray-100"
             placeholder="deb001"
-            readOnly // ID should not be editable
+            readOnly 
           />
         </div>
 

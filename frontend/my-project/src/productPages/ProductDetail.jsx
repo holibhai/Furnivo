@@ -24,7 +24,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ad from "../assets/Black Brown Modern Big Sale Furniture Email Header.png"
 
-// Sample user avatars
 const userAvatars = [
   "https://randomuser.me/api/portraits/women/44.jpg",
   "https://randomuser.me/api/portraits/men/32.jpg",
@@ -43,9 +42,8 @@ const ProductDetail = () => {
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);
   const { cartItemCount, setCartItemCount } = useAppContext();
-  const [sliderKey, setSliderKey] = useState(0); // Key to force slider re-render
+  const [sliderKey, setSliderKey] = useState(0); 
 
-  // Custom arrow components with proper styling
   const NextArrow = ({ onClick }) => (
     <button
       onClick={onClick}
@@ -66,7 +64,6 @@ const ProductDetail = () => {
     </button>
   );
 
-  // Slider settings for reviews
   const reviewSliderSettings = {
     dots: true,
     infinite: true,
@@ -86,7 +83,6 @@ const ProductDetail = () => {
     ]
   };
 
-  // Slider settings for related products
   const productSliderSettings = {
     dots: true,
     infinite: true,
@@ -147,7 +143,6 @@ const ProductDetail = () => {
             {
               headers: {
                 "Content-Type": "application/json",
-                // Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
             }
           );
@@ -155,7 +150,6 @@ const ProductDetail = () => {
             (p) => p.id !== response.data.id
           );
           setRelatedProducts(filteredRelated);
-          // Force slider re-render when related products load
           setSliderKey(prev => prev + 1); 
         }
       } catch (error) {
@@ -188,7 +182,6 @@ const ProductDetail = () => {
   }, [id]);
 
   const updateCart = async () => {
-    // const toastId = toast.loading("Adding to cart...");
     try {
       const response = await axios.get(
         `http://localhost:8080/api/product/checkQuantity/${id}/${quantity}`,
@@ -285,7 +278,6 @@ const ProductDetail = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  // Calculate average rating and rating distribution
   const averageRating = reviews.length > 0 
     ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
  ) : 0;
@@ -337,7 +329,6 @@ const ProductDetail = () => {
         theme="light"
       />
       
-      {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 py-3 text-sm text-gray-600">
         <Link to="/" className="hover:text-blue-600">Home</Link>
         <span className="mx-2">/</span>
@@ -348,7 +339,6 @@ const ProductDetail = () => {
 
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Product Image Gallery */}
           <div className="md:sticky top-24 self-start">
             <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-4 md:h-[700px]">
               <img
@@ -362,7 +352,6 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Product Details */}
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               {product.productName}
@@ -385,7 +374,6 @@ const ProductDetail = () => {
               </span>
             </div>
 
-            {/* Price Section */}
             <div className="bg-gray-50 p-4 rounded-lg mb-6">
               <div className="flex items-center flex-wrap gap-4">
                 {product.discount > 0 ? (
@@ -408,7 +396,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Availability */}
             <div className="mb-6">
               <div className="flex items-center mb-2">
                 <span className="font-medium text-gray-700 mr-2">Availability:</span>
@@ -429,7 +416,6 @@ const ProductDetail = () => {
               </p>
             </div>
 
-            {/* Quantity Selector */}
             <div className="mb-8">
               <label className="block text-gray-700 font-medium mb-2">Quantity:</label>
               <div className="flex items-center">
@@ -455,7 +441,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex flex-wrap gap-3 mb-8">
               <button
                 onClick={updateCart}
@@ -470,7 +455,6 @@ const ProductDetail = () => {
               </button>
             </div>
 
-            {/* Product Highlights */}
             <div className="border-t border-b border-gray-200 py-6 mb-8">
               <h3 className="font-medium text-gray-900 mb-4">Product Highlights</h3>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -493,7 +477,6 @@ const ProductDetail = () => {
               </ul>
             </div>
 
-            {/* Product Specifications */}
             <div className="mb-8">
               <h3 className="font-medium text-gray-900 mb-4">Specifications</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -523,7 +506,6 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Share Buttons */}
             <div className="mb-8">
               <h3 className="font-medium text-gray-900 mb-3">Share this product</h3>
               <div className="flex gap-2">
@@ -540,7 +522,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Product Description */}
         <div className="my-12 bg-white rounded-xl shadow-sm p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Product Description</h2>
           <div className="prose max-w-none text-gray-600">
@@ -548,12 +529,10 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Reviews Section */}
         <div className="my-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Rating Summary */}
             <div className="lg:col-span-1 bg-white rounded-xl shadow-sm p-6 h-fit sticky top-24">
               <div className="text-center mb-6">
                 <div className="text-5xl font-bold text-gray-900 mb-2">
@@ -567,7 +546,6 @@ const ProductDetail = () => {
                 </p>
               </div>
 
-              {/* Rating Distribution */}
               <div className="space-y-3 mb-6">
                 {[5, 4, 3, 2, 1].map((stars) => (
                   <div key={stars} className="flex items-center">
@@ -597,7 +575,6 @@ const ProductDetail = () => {
               </button>
             </div>
 
-            {/* Reviews List */}
             <div className="lg:col-span-2">
               {isLoadingReviews ? (
                 <div className="flex justify-center py-12">
@@ -662,7 +639,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="my-12">
             <div className="flex justify-between items-center mb-6">
@@ -742,7 +718,6 @@ const ProductDetail = () => {
           </div>
         )}
 
-        {/* FAQ Section */}
         <div className="my-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -769,7 +744,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Warranty Information */}
         <div className="my-12 bg-blue-50 rounded-xl p-8">
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/4 mb-6 md:mb-0 flex justify-center">

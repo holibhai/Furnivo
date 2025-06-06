@@ -17,7 +17,6 @@ const UserSidebar = () => {
         <img src={logo} alt="" className="-mb-20 -mt-16" />
       </h2>
 
-      {/* Dashboard */}
       <NavLink
         to="/user"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -25,7 +24,6 @@ const UserSidebar = () => {
         <LayoutDashboard size={18} /> Dashboard
       </NavLink>
 
-      {/* Orders */}
       <NavLink
         to="/user/userOrderDisplay"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -33,7 +31,6 @@ const UserSidebar = () => {
         <List size={18} /> Orders
       </NavLink>
 
-      {/* Review */}
       <NavLink
         to="/user/review"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -41,7 +38,6 @@ const UserSidebar = () => {
         <Star size={18} /> Review
       </NavLink>
 
-      {/* Settings */}
       <NavLink
         to="/user/settings"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-700 transition"
@@ -49,7 +45,6 @@ const UserSidebar = () => {
         <Settings size={18} /> Settings
       </NavLink>
 
-      {/* Logout */}
       <NavLink
         to="/logout"
         className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-red-500 hover:text-white transition mt-auto"

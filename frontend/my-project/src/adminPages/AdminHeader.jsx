@@ -39,7 +39,6 @@ const AdminHeader = () => {
     fetchOrders();
   }, []);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -69,7 +68,6 @@ const AdminHeader = () => {
       </div>
 
       <div className="flex items-center gap-6 relative">
-        {/* Notifications */}
         <div className="relative" ref={dropdownRef}>
           <Bell
             className="text-gray-600 hover:text-yellow-500 cursor-pointer"
@@ -82,7 +80,6 @@ const AdminHeader = () => {
             </span>
           )}
 
-          {/* Dropdown */}
           {showNotifications && (
             <div className="absolute right-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
               <div className="p-4 border-b font-semibold text-gray-700">
@@ -122,7 +119,6 @@ const AdminHeader = () => {
         </Link>
        
 
-        {/* Logout Button */}
         <button className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1.5 rounded-md transition"
         onClick={handleClick}>
           <LogOut size={18} />

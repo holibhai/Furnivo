@@ -147,9 +147,7 @@ const AddProduct = () => {
 
         <form onSubmit={handleSubmit} className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Left Column */}
             <div className="space-y-6">
-              {/* Product Name */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Type className="h-4 w-4 mr-2 text-gray-500" />
@@ -165,7 +163,6 @@ const AddProduct = () => {
                 />
               </div>
 
-              {/* Description */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <AlignLeft className="h-4 w-4 mr-2 text-gray-500" />
@@ -181,7 +178,6 @@ const AddProduct = () => {
                 />
               </div>
 
-              {/* Category */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Package className="h-4 w-4 mr-2 text-gray-500" />
@@ -206,7 +202,6 @@ const AddProduct = () => {
                 </div>
               </div>
 
-              {/* Product Type */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Package className="h-4 w-4 mr-2 text-gray-500" />
@@ -232,9 +227,7 @@ const AddProduct = () => {
               </div>
             </div>
 
-            {/* Right Column */}
             <div className="space-y-6">
-              {/* Price */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <DollarSign className="h-4 w-4 mr-2 text-gray-500" />
@@ -242,7 +235,6 @@ const AddProduct = () => {
                 </label>
                 <div className="relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    {/* <span className="text-gray-500">$</span> */}
                   </div>
                   <input
                     type="number"
@@ -258,10 +250,8 @@ const AddProduct = () => {
                 </div>
               </div>
 
-              {/* Discount */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
-                  {/* <Percent className="h-4 w-4 mr-2 text-gray-500" /> */}
                   Discount (%)
                 </label>
                 <div className="relative rounded-md shadow-sm">
@@ -273,7 +263,6 @@ const AddProduct = () => {
                     className="block w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    {/* <Percent className="h-4 w-4 text-gray-400" /> */}
                   </div>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <span className="text-gray-500">%</span>
@@ -281,7 +270,6 @@ const AddProduct = () => {
                 </div>
               </div>
 
-              {/* Quantity */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Package className="h-4 w-4 mr-2 text-gray-500" />
@@ -297,7 +285,6 @@ const AddProduct = () => {
                 />
               </div>
 
-              {/* Dimensions */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Ruler className="h-4 w-4 mr-2 text-gray-500" />
@@ -352,7 +339,6 @@ const AddProduct = () => {
                 </div>
               </div>
 
-              {/* Warranty */}
               <div>
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Shield className="h-4 w-4 mr-2 text-gray-500" />
@@ -369,7 +355,6 @@ const AddProduct = () => {
             </div>
           </div>
 
-          {/* Image Upload */}
           <div className="mt-6">
             <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
               <ImageIcon className="h-4 w-4 mr-2 text-gray-500" />
@@ -410,7 +395,6 @@ const AddProduct = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <div className="mt-8 flex justify-end">
             <button
               type="submit"

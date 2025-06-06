@@ -165,7 +165,6 @@ const AdminProductDetail = () => {
               )}
             </div>
             
-            {/* Image Gallery Placeholder */}
             <div className="flex space-x-2 mt-4 w-full max-w-md overflow-x-auto py-2">
               {[1, 2, 3].map((item) => (
                 <div key={item} className="flex-shrink-0 w-16 h-16 rounded-md bg-gray-200 border border-gray-200 cursor-pointer hover:border-blue-400 transition-colors"></div>
@@ -175,7 +174,6 @@ const AdminProductDetail = () => {
               </div>
             </div>
             
-            {/* Action Buttons */}
             <div className="mt-6 w-full max-w-md flex flex-col space-y-3">
               <div className="flex justify-between space-x-3">
                 <button 
@@ -202,7 +200,6 @@ const AdminProductDetail = () => {
             </div>
           </div>
 
-          {/* Product Details Section */}
           <div className="md:w-1/2 p-6">
             <div className="flex justify-between items-start">
               <div>
@@ -295,7 +292,6 @@ const AdminProductDetail = () => {
               <Divider />
             </div>
             
-            {/* Tab Content */}
             <div className="mb-8">
               {activeTab === 0 && (
                 <>
@@ -446,7 +442,6 @@ const AdminProductDetail = () => {
   );
 };
 
-// Simple Plus icon component
 const PlusIcon = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>

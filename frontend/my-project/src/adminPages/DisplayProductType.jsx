@@ -28,7 +28,6 @@ const DisplayProductType = () => {
         setProductTypes(data);
         setFilteredTypes(data);
 
-        // Extract unique categories for filter dropdown
         const categories = [
           "All",
           ...new Set(data.map((item) => item.catagorie)),
@@ -101,7 +100,6 @@ const DisplayProductType = () => {
           </div>
         </div>
 
-        {/* Search and Filter Row */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
           <input
             type="text"

@@ -16,7 +16,7 @@ const OfferList = () => {
 
   const handleOfferChange = (event) => {
     const selectedValue = event.target.value;
-    setOffer(selectedValue === offer ? null : selectedValue); // Toggle selection
+    setOffer(selectedValue === offer ? null : selectedValue); 
   };
 
   const handleClearFilter = () => {

@@ -15,7 +15,7 @@ const DeliveryCost = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: 'city', direction: 'ascending' });
 
-  const token = localStorage.getItem('token'); // or use sessionStorage or context if needed
+  const token = localStorage.getItem('token'); 
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

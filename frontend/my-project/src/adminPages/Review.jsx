@@ -195,7 +195,6 @@ const Review = () => {
           <h1 className="text-2xl font-bold text-gray-800">Customer Reviews</h1>
         </div>
 
-        {/* Filter Section */}
         <div className="bg-white p-4 rounded-lg shadow mb-6 flex flex-col md:flex-row gap-4">
           <div className="relative flex-grow">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -237,14 +236,12 @@ const Review = () => {
           </div>
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="mb-4 p-4 bg-red-50 rounded-lg flex items-start">
             <div className="text-red-800 font-medium">{error}</div>
           </div>
         )}
 
-        {/* Reviews Table */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
@@ -365,7 +362,6 @@ const Review = () => {
           </div>
         </div>
 
-        {/* Review Detail Modal */}
         {isModalOpen && selectedReview && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
