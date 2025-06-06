@@ -265,7 +265,7 @@ const CheckOut = () => {
         <div className="flex justify-between items-center my-10">
           <button
             className="bg-gray-700 p-4 text-white text-xs font-semibold"
-            onClick={() => navigate("/shop")}
+            onClick={() => navigate("/productListMainPage")}
           >
             RETURN TO SHOP
           </button>
