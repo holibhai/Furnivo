@@ -18,23 +18,28 @@ public class ReviewService implements ReviewImpl {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Override
     public Review addReview(Review review) {
         review.setCreatedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         return reviewRepository.save(review);
     }
 
+    @Override
     public List<Review> getReviewsByProductId(Long productId) {
         return reviewRepository.findByProductId(productId);
     }
 
+    @Override
     public List<Review> getReviewsByUserId(Long userId) {
         return reviewRepository.findByUserId(userId);
     }
 
+    @Override
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
 
+    @Override
     public Review updateStatus(int id) {
         Optional<Review> review = reviewRepository.findById(id);
         if(review.isPresent()) {
@@ -57,6 +62,7 @@ public class ReviewService implements ReviewImpl {
 
     }
 
+    @Override
     public String deleteReview(int id) {
         Optional<Review> review = reviewRepository.findById(id);
         if(review.isPresent()) {

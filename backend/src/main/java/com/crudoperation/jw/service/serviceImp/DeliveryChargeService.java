@@ -18,6 +18,7 @@ public class DeliveryChargeService implements DeliveryChargeServiceImpl {
     @Autowired
     private DeliveryChargeRepository deliveryChargeRepository;
 
+    @Override
     public Response createDeliveryCharge(DeliveryCharge deliveryCharge) {
         Response response = new Response();
         try{
@@ -31,6 +32,7 @@ public class DeliveryChargeService implements DeliveryChargeServiceImpl {
         return response;
     }
 
+    @Override
     public Response getAllDeliveryDetails() {
         Response response = new Response();
         try{
@@ -46,6 +48,7 @@ public class DeliveryChargeService implements DeliveryChargeServiceImpl {
         return response;
     }
 
+    @Override
     public Response getPriceOfCity(String city) {
         Response response = new Response();
         try{
@@ -63,11 +66,12 @@ public class DeliveryChargeService implements DeliveryChargeServiceImpl {
         return response;
     }
 
+    @Override
     public Response updateCharge(DeliveryCharge deliveryCharge, int id) {
         Response response = new Response();
         return response;
     }
-
+    @Override
     public Response deleteCharge(int id) {
         Response response = new Response();
 

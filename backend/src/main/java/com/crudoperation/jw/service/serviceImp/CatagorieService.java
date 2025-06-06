@@ -21,6 +21,7 @@ public class CatagorieService implements CategorieImpl {
     @Autowired
     private CatagorieRepository catagorieRepository;
 
+    @Override
     public Response add(Catagorie catagorie) {
         Response response = new Response();
         try{
@@ -35,6 +36,7 @@ public class CatagorieService implements CategorieImpl {
         }
         return response;
     }
+    @Override
     public Response getCatagorie() {
         Response response = new Response();
 //        List<Catagorie> catagorieList=new ArrayList<Catagorie>();
@@ -53,6 +55,7 @@ public class CatagorieService implements CategorieImpl {
         return response;
     }
 
+    @Override
     public Response updateCatagory(Catagorie catagorie, int id) {
         Response response = new Response();
         try{
@@ -74,6 +77,7 @@ public class CatagorieService implements CategorieImpl {
         return response;
     }
 
+    @Override
     public Response deleteCatagory(int id) {
         Response response = new Response();
         try{
@@ -87,6 +91,7 @@ public class CatagorieService implements CategorieImpl {
         return response;
     }
 
+    @Override
     public Response getCatagory(int id) {
         Response response=new Response();
         try{

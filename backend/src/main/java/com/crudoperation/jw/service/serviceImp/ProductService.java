@@ -23,7 +23,7 @@ public class ProductService implements ProductServiceImpl {
     @Autowired
     private ProductRepository productRepository;
 
-
+     @Override
     public Response addProduct(Product product, MultipartFile imagefile) {
         Response response = new Response();
         System.out.println(product.getProductQuantity());
@@ -55,11 +55,13 @@ public class ProductService implements ProductServiceImpl {
         return response;
     }
 
+    @Override
     public Product getProduct(int id) {
         Optional<Product> product = productRepository.findById(id);
         return product.orElse(null);
     }
 
+    @Override
     public Response getAllProduct() {
         Response response = new Response();
         try {
@@ -76,6 +78,7 @@ public class ProductService implements ProductServiceImpl {
 
     }
 
+    @Override
     public Response updateProduct(Product product, MultipartFile imageFile, int productId) {
         Response response = new Response();
 
@@ -127,6 +130,7 @@ public class ProductService implements ProductServiceImpl {
     }
 
 
+    @Override
     public Response checkQuantity(int id, int quantity) {
         Response response = new Response();
         try {
@@ -149,14 +153,17 @@ public class ProductService implements ProductServiceImpl {
         return response;
     }
 
+    @Override
     public Product getProductWithMinimumPrice() {
         return productRepository.findTopByOrderByProductPriceAsc();
     }
 
+    @Override
     public Product getProductWithMaximumPrice() {
         return productRepository.findTopByOrderByProductPriceDesc();
     }
 
+    @Override
     public Response getProductsByCatagorie(String catagorie) {
         Response response = new Response();
         try {
@@ -173,6 +180,7 @@ public class ProductService implements ProductServiceImpl {
         return response;
     }
 
+    @Override
     public Response getProductsByProductType(String productType) {
         Response response = new Response();
         try {
@@ -189,6 +197,7 @@ public class ProductService implements ProductServiceImpl {
         return response;
     }
 
+    @Override
     public Response deleteProduct(int id) {
         Response response = new Response();
         try{

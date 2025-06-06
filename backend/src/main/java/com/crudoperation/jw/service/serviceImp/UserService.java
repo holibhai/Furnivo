@@ -46,11 +46,7 @@ public class UserService implements UserServiceImp {
     private BillingRepository billingRepository;
 
 
-
-
-
-
-
+    @Override
     public Response addUser(User user) {
         Response response=new Response();
         try{
@@ -78,7 +74,7 @@ public class UserService implements UserServiceImp {
     }
 
 
-
+    @Override
     public Response authenticateUser(LoginRequest loginRequest) {
         Response response=new Response();
         try {
@@ -104,7 +100,7 @@ public class UserService implements UserServiceImp {
         return response;
     }
 
-
+    @Override
     public Response getAllUsers() {
         Response response=new Response();
         try {
@@ -129,6 +125,7 @@ public class UserService implements UserServiceImp {
 
     }
 
+    @Override
     public Response getUserById(int userId) {
         Response response=new Response();
         try{
@@ -145,6 +142,7 @@ public class UserService implements UserServiceImp {
         return response;
     }
 
+    @Override
     public Response deleteUserAccount(int userId) {
         Response response=new Response();
         try {
@@ -163,6 +161,7 @@ public class UserService implements UserServiceImp {
         return response;
     }
 
+    @Override
     public Response updateUser(User user,MultipartFile imageFile, int userId) {
         Response response=new Response();
         try{
@@ -194,6 +193,7 @@ public class UserService implements UserServiceImp {
 
     }
 
+    @Override
     public Response addDate(int userId,LocalDate date) {
         Response response = new Response();
         try {
@@ -213,6 +213,7 @@ public class UserService implements UserServiceImp {
     }
 
 
+    @Override
     public Response changePassword(int userId, Password password) {
         Response response=new Response();
         try{

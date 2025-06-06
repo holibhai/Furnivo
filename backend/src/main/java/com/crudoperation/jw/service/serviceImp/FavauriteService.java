@@ -23,6 +23,7 @@ public class FavauriteService implements FavouriteImpl {
     @Autowired
     private UserRepository userRepository;
 
+    @Override
     public Response addFavaurite(Favaurite favaurite,int userId) {
         Response response = new Response();
         try{
@@ -50,6 +51,7 @@ public class FavauriteService implements FavouriteImpl {
         return response;
     }
 
+    @Override
     public Response getProducts(int userId) {
         Response response = new Response();
         try{
@@ -65,6 +67,7 @@ public class FavauriteService implements FavouriteImpl {
         return response;
     }
 
+    @Override
     public Response deleteFav( int productId) {
         Response response = new Response();
         try{

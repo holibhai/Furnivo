@@ -19,6 +19,7 @@ public class ProductTypeService implements ProductTypeServiceImpl {
     @Autowired
     private ProductTypeRepository productTypeRepository;
 
+    @Override
     public Response addProductType(ProductType productType) {
         Response response = new Response();
         try{
@@ -35,6 +36,7 @@ public class ProductTypeService implements ProductTypeServiceImpl {
         return response;
     }
 
+    @Override
     public Response getProductType() {
         Response response = new Response();
         try{
@@ -51,6 +53,7 @@ public class ProductTypeService implements ProductTypeServiceImpl {
         return response;
     }
 
+    @Override
     public Response deleteProductType(int id) {
         Response response = new Response();
         try{
@@ -69,6 +72,7 @@ public class ProductTypeService implements ProductTypeServiceImpl {
         return response;
     }
 
+    @Override
     public Response updateProductType(int id, ProductType productType) {
         Response response = new Response();
         try{
@@ -96,6 +100,7 @@ public class ProductTypeService implements ProductTypeServiceImpl {
 
     }
 
+    @Override
     public Response getProductTypeByProductTypeName(String catagorie) {
         Response response = new Response();
         try{
@@ -113,7 +118,7 @@ public class ProductTypeService implements ProductTypeServiceImpl {
         return response;
     }
 
-
+    @Override
     public Response getProductTypeById(int productTypeId) {
         Response response = new Response();
         try{

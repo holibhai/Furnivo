@@ -27,6 +27,7 @@ public class BillingService implements BillingServiceImp {
     @Autowired
     private UserRepository userRepository;
 
+    @Override
     public Response addBill(Billing billing) {
         Response response = new Response();
         try{
@@ -54,7 +55,7 @@ public class BillingService implements BillingServiceImp {
         }
         return response;
     }
-
+    @Override
     public Response deleteBilling(int id) {
         Response response = new Response();
         try{

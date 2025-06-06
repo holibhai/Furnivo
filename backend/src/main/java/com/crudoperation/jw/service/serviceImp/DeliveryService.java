@@ -13,6 +13,7 @@ public class DeliveryService implements DeliveryServiceImpl {
     @Autowired
     private DeliveryRepository deliveryRepository;
 
+    @Override
     public Response addDeliveryType(Delivery delivery) {
         Response response = new Response();
         try{
