@@ -22,8 +22,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
-
-
 @EnableAspectJAutoProxy
 public class SecurityConfig {
     private final UserDetailsImp userDetailsImp;
