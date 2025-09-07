@@ -18,6 +18,9 @@ public class BillingController {
     public ResponseEntity<Response>addBilling(@RequestBody  Billing billing){
          return ResponseEntity.ok(billingService.addBill(billing));
     }
+
+
+
     public ResponseEntity<Response>deleteBilling(@PathVariable int id){
         return ResponseEntity.ok(billingService.deleteBilling(id));
     }
